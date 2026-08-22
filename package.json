@@ -1,0 +1,17 @@
+{
+  "name": "trading-journal",
+  "version": "1.0.0",
+  "description": "Personal trading journal for stocks and bitcoin - logging, tagging, stats and P&L charts.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "express": "^4.22.2",
+    "pg": "^8.23.0"
+  }
+}
