@@ -15,88 +15,91 @@
   * { box-sizing: border-box; margin: 0; }
   html, body { height: 100%; }
   body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; display: flex; }
-
-  /* ---------- sidebar ---------- */
-  aside { width: 210px; min-width: 210px; background: #080808; border-right: 1px solid var(--line); padding: 14px 10px; overflow-y: auto; height: 100vh; position: sticky; top: 0; }
+  aside { width: 232px; min-width: 232px; background: #080808; border-right: 1px solid var(--line); padding: 14px 10px; overflow-y: auto; height: 100vh; position: sticky; top: 0; display: flex; flex-direction: column; }
   .brand { font-weight: 700; letter-spacing: .18em; font-size: 13px; padding: 2px 8px 14px; }
-  .nav-item { display: block; width: 100%; text-align: left; background: none; border: 1px solid transparent; color: var(--muted); font: inherit; padding: 7px 10px; border-radius: 6px; cursor: pointer; margin: 1px 0; }
+  .nav-item { display: block; width: 100%; text-align: left; background: none; border: 1px solid transparent; color: var(--muted); font: inherit; padding: 7px 10px; border-radius: 6px; cursor: pointer; margin: 1px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nav-item:hover { color: var(--ink); }
   .nav-item.active { background: var(--ink); color: #0a0a0a; font-weight: 600; }
+  .nav-item.soon { color: var(--faint); cursor: default; }
+  .nav-item.soon:hover { color: var(--faint); }
   .nav-head { font-size: 10px; letter-spacing: .14em; color: var(--faint); text-transform: uppercase; padding: 14px 10px 4px; }
   .nav-sub { padding-left: 20px; font-size: 12px; }
-
-  /* ---------- main ---------- */
+  .acct-item { font-size: 12px; }
   main { flex: 1; min-width: 0; padding: 18px 22px 60px; }
-  .filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin-bottom: 18px; }
+  .ftabs { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; margin-bottom: 14px; }
+  .ftabs button { background: none; border: 0; color: var(--ink); font: inherit; padding: 10px 20px; cursor: pointer; }
+  .ftabs button span { color: var(--muted); margin-right: 8px; }
+  .ftabs button + button { border-left: 1px solid var(--line); }
+  .filters { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 10px; }
+  @media (max-width: 1100px) { .filters { grid-template-columns: repeat(3, 1fr); } }
   select, input, textarea, button { font: inherit; color: var(--ink); }
-  .filters select, .filters input { background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; width: 100%; }
-  .count-line { color: var(--muted); font-size: 11px; margin: 2px 0 14px; }
-  h1.viewtitle { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
-  .viewdesc { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
-
+  .filters select { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; width: 100%; }
+  .count-line { color: var(--muted); font-size: 11px; margin: 6px 0 16px; }
+  h1.viewtitle { font-size: 21px; font-weight: 700; margin-bottom: 4px; }
+  .viewdesc { color: var(--muted); font-size: 12px; margin-bottom: 16px; max-width: 1100px; }
   .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 14px 16px; }
   .grid { display: grid; gap: 14px; }
-
-  /* KPI strip */
-  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
-  .kpi { background: var(--panel); padding: 12px 14px; display: flex; justify-content: space-between; gap: 8px; align-items: center; min-height: 74px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+  .kpi { background: var(--panel); padding: 12px 14px; display: flex; justify-content: space-between; gap: 8px; align-items: center; min-height: 76px; }
   .kpi .label { color: var(--muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
   .kpi .big { font-size: 17px; font-weight: 700; }
   .kpi .small { font-size: 11px; color: var(--muted); margin-top: 3px; }
   .kpi canvas { max-width: 74px; max-height: 44px; }
-
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+  .scard { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 13px 15px; border-left: 3px solid var(--faint); }
+  .scard.g { border-left-color: var(--gain); } .scard.r { border-left-color: var(--loss); }
+  .scard .k { color: var(--muted); font-size: 11px; margin-bottom: 6px; }
+  .scard .v { font-size: 18px; font-weight: 700; }
+  .scard .s { color: var(--muted); font-size: 11px; margin-top: 4px; }
   .gain { color: var(--gain); } .loss { color: var(--loss); } .flat { color: var(--ink); }
-
   .dash-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
   .dash-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 1000px) { .dash-grid, .dash-grid2 { grid-template-columns: 1fr; } }
-
-  .panel h2 { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .panel h2 { font-size: 12px; font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
   .tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
   .tabs button { background: none; border: 0; color: var(--muted); padding: 4px 10px; cursor: pointer; font-size: 11px; }
   .tabs button.on { background: var(--ink); color: #0a0a0a; font-weight: 600; }
-
-  .stat-rows div { display: flex; justify-content: space-between; padding: 7px 2px; border-bottom: 1px solid #191b19; font-size: 12px; }
+  .stat-rows div { display: flex; justify-content: space-between; align-items: center; padding: 7px 2px; border-bottom: 1px solid #191b19; font-size: 12px; }
   .stat-rows div:last-child { border-bottom: 0; }
   .stat-rows .k { color: var(--muted); }
-
-  /* trades table */
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  th { text-align: left; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 8px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  td { padding: 8px 9px; border-bottom: 1px solid #17181a; vertical-align: top; }
+  th { text-align: left; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 9px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th.sortable { cursor: pointer; } th.sortable:hover { color: var(--ink); }
+  td { padding: 9px; border-bottom: 1px solid #17181a; vertical-align: middle; white-space: nowrap; }
   td.num, th.num { text-align: right; }
-  .tag { border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-size: 10px; color: var(--muted); white-space: nowrap; }
-  .badge { font-size: 10px; padding: 1px 7px; border-radius: 4px; font-weight: 600; }
+  .tag { border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; font-size: 10px; color: var(--muted); }
+  .badge { font-size: 10px; padding: 2px 9px; border-radius: 4px; font-weight: 600; }
   .badge.long { background: var(--gain-dim); color: var(--gain); }
   .badge.short { background: var(--loss-dim); color: var(--loss); }
   .open-badge { color: var(--ink); border: 1px dashed var(--faint); border-radius: 4px; padding: 1px 6px; font-size: 10px; }
   .rowbtn { background: none; border: 0; color: var(--muted); cursor: pointer; padding: 2px 5px; }
   .rowbtn:hover { color: var(--ink); }
   .star { color: var(--faint); } .star.on { color: #ffd75e; }
-
-  /* form */
-  form.trade { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; align-items: end; }
-  form.trade label { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-  form.trade input, form.trade select, form.trade textarea { width: 100%; background: var(--panel2); border: 1px solid var(--line); border-radius: 7px; padding: 8px 9px; color-scheme: dark; }
+  .tiltbar { display: inline-block; width: 62px; height: 12px; background: #191b19; border-radius: 3px; position: relative; vertical-align: middle; overflow: hidden; }
+  .tiltbar::after { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--faint); }
+  .tiltbar i { position: absolute; top: 2px; bottom: 2px; border-radius: 2px; }
+  form.trade { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 10px; align-items: end; }
+  form.trade label, .lbl { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  form.trade input, form.trade select, form.trade textarea, .ctl { width: 100%; background: var(--panel2); border: 1px solid var(--line); border-radius: 7px; padding: 8px 9px; color-scheme: dark; }
   .full { grid-column: 1 / -1; }
   .btn { background: var(--ink); color: #0a0a0a; border: 0; border-radius: 7px; padding: 9px 16px; font-weight: 700; cursor: pointer; }
   .btn.ghost { background: none; color: var(--muted); border: 1px solid var(--line); font-weight: 400; }
   .btn:hover { opacity: .9; }
   input:focus, select:focus, textarea:focus, button:focus-visible { outline: 1px solid var(--gain); outline-offset: 1px; }
-
-  /* calendar */
-  .cal-head { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-  .cal-dow { color: var(--faint); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; text-align: center; padding: 4px 0; }
-  .cal-cell { background: var(--panel); border: 1px solid var(--line); border-radius: 7px; min-height: 74px; padding: 7px 8px; font-size: 11px; }
-  .cal-cell.out { opacity: .3; }
-  .cal-cell .d { color: var(--muted); font-size: 10px; }
-  .cal-cell .p { font-weight: 700; margin-top: 6px; font-size: 12px; }
-  .cal-cell .n { color: var(--muted); font-size: 10px; }
-  .cal-cell.win { background: rgba(61,220,132,.06); border-color: rgba(61,220,132,.35); }
-  .cal-cell.lose { background: rgba(255,93,93,.06); border-color: rgba(255,93,93,.35); }
-
-  /* chartbook */
+  .cal-toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .cal-nav { display: flex; align-items: center; gap: 10px; margin-left: auto; margin-right: auto; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+  .cal-grid.wide { grid-template-columns: repeat(4, 1fr); }
+  .cal-dowbar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-bottom: 7px; }
+  .cal-dow { color: var(--muted); font-size: 11px; text-align: center; padding: 7px 0; background: var(--panel); border: 1px solid var(--line); border-radius: 7px; }
+  .cal-cell { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-height: 84px; padding: 8px 10px; font-size: 11px; cursor: pointer; position: relative; }
+  .cal-cell.out { opacity: .35; }
+  .cal-cell.sel { outline: 1px solid var(--ink); }
+  .cal-cell .d { color: var(--muted); font-size: 10px; position: absolute; top: 7px; right: 9px; }
+  .cal-cell .p { font-weight: 700; margin-top: 18px; font-size: 13px; }
+  .cal-cell .n { color: var(--muted); font-size: 10px; margin-top: 2px; }
+  .cal-cell.win { background: rgba(61,220,132,.07); border-color: rgba(61,220,132,.4); }
+  .cal-cell.lose { background: rgba(255,93,93,.07); border-color: rgba(255,93,93,.4); }
   .book { display: grid; grid-template-columns: 290px 1fr; gap: 14px; }
   @media (max-width: 900px) { .book { grid-template-columns: 1fr; } }
   .book-list { max-height: 72vh; overflow-y: auto; display: grid; gap: 8px; align-content: start; }
@@ -106,48 +109,97 @@
   .book-card .k { color: var(--muted); font-size: 11px; }
   .book-img { width: 100%; border-radius: 7px; border: 1px solid var(--line); }
   .book-empty { border: 1px dashed var(--faint); border-radius: 7px; color: var(--muted); text-align: center; padding: 40px 10px; font-size: 12px; }
-
   .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #0a0a0a; padding: 9px 15px; border-radius: 7px; font-size: 12px; opacity: 0; transition: opacity .2s; pointer-events: none; z-index: 50; font-weight: 600; }
   .toast.show { opacity: 1; }
   .muted { color: var(--muted); }
   .empty { color: var(--muted); text-align: center; padding: 36px 0; }
   #pwBar { display: none; gap: 8px; margin-bottom: 14px; }
   #pwBar input { background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: 7px 9px; }
+  .display-row { display: flex; gap: 26px; margin-bottom: 14px; flex-wrap: wrap; align-items: flex-end; }
+  .display-row select, .display-row input { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+  .legend { font-size: 11px; color: var(--muted); display: flex; gap: 16px; flex-wrap: wrap; }
+  .legend b { font-weight: 600; color: var(--ink); }
+  .edit-panel { max-width: 360px; }
+  .edit-panel .field { margin-bottom: 14px; }
+  .edit-panel input[type=number] { width: 100%; background: var(--panel2); border: 1px solid var(--line); border-radius: 7px; padding: 9px 11px; text-align: right; }
+  .switch { position: relative; width: 44px; height: 24px; background: #202422; border-radius: 99px; cursor: pointer; border: 1px solid var(--line); }
+  .switch.on { background: var(--gain-dim); border-color: var(--gain); }
+  .switch i { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--muted); transition: left .15s; }
+  .switch.on i { left: 22px; background: var(--gain); }
 </style>
 </head>
 <body>
 
 <aside>
   <div class="brand">QUANT</div>
-  <button class="nav-item active" data-view="dashboard">Dashboard</button>
-  <button class="nav-item" data-view="trades">Trades</button>
-  <button class="nav-item" data-view="equity">Equity Graph</button>
-  <button class="nav-item" data-view="calendar">Calendar</button>
-  <button class="nav-item" data-view="fullscan">Full Scan</button>
-  <div class="nav-head">Chart Lab</div>
-  <button class="nav-item nav-sub" data-view="distribution">P&amp;L Distribution</button>
-  <button class="nav-item nav-sub" data-view="bytime">Performance by Time</button>
-  <button class="nav-item nav-sub" data-view="streaks">Streaks &amp; Expectancy</button>
-  <div class="nav-head">Reports</div>
-  <button class="nav-item nav-sub" data-view="chartbook">Chartbook</button>
+  <div>
+    <button class="nav-item active" data-view="dashboard">Dashboard</button>
+    <button class="nav-item" data-view="trades">Trades</button>
+    <button class="nav-item" data-view="equity">Equity Graph</button>
+    <button class="nav-item" data-view="calendar">Calendar</button>
+    <button class="nav-item" data-view="fullscan">Full Scan</button>
+    <div class="nav-head">Chart Lab</div>
+    <button class="nav-item nav-sub" data-view="streaks">Consecutive Winners/L…</button>
+    <button class="nav-item nav-sub" data-view="eqexp">Equity vs Expectancy</button>
+    <button class="nav-item nav-sub" data-view="fees">Exchange Fee Breakdown</button>
+    <button class="nav-item nav-sub" data-view="exitan">Exit Analysis</button>
+    <button class="nav-item nav-sub" data-view="kelly">Kelly Criterion</button>
+    <button class="nav-item nav-sub" data-view="conc">P&amp;L Concentration</button>
+    <button class="nav-item nav-sub" data-view="distribution">P&amp;L Distribution</button>
+    <button class="nav-item nav-sub" data-view="bytime">Performance by Time</button>
+    <button class="nav-item nav-sub" data-view="perfratio">Performance Ratio</button>
+    <button class="nav-item nav-sub" data-view="riskdist">Risk Distribution</button>
+    <button class="nav-item nav-sub" data-view="rolling">Rolling Expectancy</button>
+    <button class="nav-item nav-sub" data-view="stopdist">Stop Distance vs Winr…</button>
+    <button class="nav-item nav-sub" data-view="efficiency">Trade Efficiency</button>
+    <div class="nav-head">Strategy Lab</div>
+    <button class="nav-item nav-sub" data-view="ev">EV Calculator</button>
+    <button class="nav-item nav-sub" data-view="sim">Simulator</button>
+    <div class="nav-head">Reports</div>
+    <button class="nav-item nav-sub" data-view="chartbook">Chartbook</button>
+    <button class="nav-item nav-sub soon">Monthly Reports</button>
+  </div>
+  <div style="margin-top:auto;border-top:1px solid var(--line);padding-top:8px">
+    <div class="nav-head" style="cursor:default">Accounts</div>
+    <div id="acctList"></div>
+  </div>
 </aside>
 
 <main>
   <div id="pwBar"><input type="password" id="pwInput" placeholder="Journal password"><button class="btn" id="pwBtn">Unlock</button></div>
 
-  <div class="filters" id="filters">
-    <select id="fSymbol"><option value="">All symbols</option></select>
-    <select id="fAsset"><option value="">All assets</option><option value="stock">Stocks</option><option value="crypto">Crypto</option></select>
-    <select id="fStyle"><option value="">All styles</option><option value="swing">Swing</option><option value="intraday">Intraday</option></select>
-    <select id="fDirection"><option value="">Direction</option><option value="long">Long</option><option value="short">Short</option></select>
-    <select id="fSetup"><option value="">Setup</option></select>
-    <select id="fOutcome"><option value="">Outcome</option><option value="win">Winners</option><option value="loss">Losers</option><option value="open">Open</option></select>
-    <select id="fYear"><option value="">Year</option></select>
-    <select id="fMonth"><option value="">Month</option></select>
-    <select id="fStarred"><option value="">Starred</option><option value="yes">Starred only</option></select>
-    <select id="fLast"><option value="">Last trades</option><option>10</option><option>20</option><option>50</option><option>100</option></select>
+  <div id="filterWrap">
+    <div class="ftabs">
+      <button id="basicBtn"><span id="basicChev">⌄</span>Basic Filters</button>
+      <button id="advBtn"><span id="advChev">›</span>Advanced Filters</button>
+    </div>
+    <div id="basicFilters">
+      <div class="filters">
+        <select id="fAccount"><option value="">All accounts</option></select>
+        <select id="fSymbol"><option value="">All symbols</option></select>
+        <select id="fSetup"><option value="">Setup</option></select>
+        <select id="fDirection"><option value="">Direction</option><option value="long">Long</option><option value="short">Short</option></select>
+        <select id="fOutcome"><option value="">Outcome</option><option value="win">Winners</option><option value="loss">Losers</option><option value="be">Breakeven</option></select>
+      </div>
+      <div class="filters">
+        <select id="fStatus"><option value="">All trades</option><option value="closed">Closed only</option><option value="open">Open only</option></select>
+        <select id="fYear"><option value="">Year</option></select>
+        <select id="fMonth"><option value="">Month</option></select>
+        <select id="fDay"><option value="">Day</option></select>
+        <select id="fHour"><option value="">Hour</option></select>
+      </div>
+    </div>
+    <div id="advFilters" style="display:none">
+      <div class="filters">
+        <select id="fReturn"><option value="">Return %</option><option value="gt0">Positive</option><option value="gte1">≥ +1%</option><option value="gte5">≥ +5%</option><option value="lt0">Negative</option><option value="lte-1">≤ −1%</option><option value="lte-5">≤ −5%</option></select>
+        <select id="fR"><option value="">R-Multiple</option><option value="gt2">&gt; 2R</option><option value="1to2">1R – 2R</option><option value="0to1">0R – 1R</option><option value="-1to0">−1R – 0R</option><option value="lt-1">&lt; −1R</option></select>
+        <select id="fStarred"><option value="">Starred</option><option value="yes">Starred only</option></select>
+        <select id="fLast"><option value="">Last trades</option><option>10</option><option>20</option><option>50</option><option>100</option></select>
+        <span></span>
+      </div>
+    </div>
+    <div class="count-line" id="countLine"></div>
   </div>
-  <div class="count-line" id="countLine"></div>
 
   <div id="view"></div>
 </main>
@@ -157,25 +209,44 @@
 <script>
 /* ================= state & helpers ================= */
 const $ = s => document.querySelector(s);
-let all = [];              // all trades from API
+let all = [];
 let view = "dashboard";
-let pnlTab = "pnl";        // pnl | drawdown | table
-let calMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let pnlTab = "pnl";
+let calPeriod = "daily", calGroupBy = "close", calSel = null;
+let calAnchor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let eqUnit = "$", eqTilt = true;
 let bookSel = null;
+let sortKey = "exit", sortDir = -1;
+let showForm = false;
+let rollWin = 20;
+let btDate = "entry", btPeriod = "weekday";
+let stopEdges = "0.5, 1, 2, 5";
+let evIn = null, simIn = null, simRuns = null;
 const charts = {};
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const PALETTE = ["#4b9eff","#f59e0b","#3ddc84","#ff5d5d","#e879f9","#22d3ee","#a3e635","#fb923c","#c084fc"];
 
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const money = n => (n < 0 ? "-$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const smoney = n => (n >= 0 ? "+" : "-") + "$" + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const kfmt = n => { const a = Math.abs(n), sign = n >= 0 ? "+" : "-";
+  if (a >= 1e6) return sign + "$" + (a/1e6).toFixed(1) + "M";
+  if (a >= 1e4) return sign + "$" + Math.round(a/1e3) + "K";
+  if (a >= 1e3) return sign + "$" + (a/1e3).toFixed(1) + "K";
+  return sign + "$" + Math.round(a); };
 const cls = n => n > 0 ? "gain" : n < 0 ? "loss" : "flat";
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const dt = s => { if (!s) return ""; const d = new Date(s); return `${String(d.getDate()).padStart(2,"0")}/${MONTHS[d.getMonth()]}/${String(d.getFullYear()).slice(2)} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; };
-const dayKey = s => { const d = new Date(s); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; };
+const dtFull = s => { if (!s) return ""; const d = new Date(s); return `${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; };
+const dayKey = d => { d = new Date(d); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; };
 function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2400); }
 function chart(id, cfg) { charts[id]?.destroy(); const el = document.getElementById(id); if (el) charts[id] = new Chart(el, cfg); }
 function destroyCharts() { for (const k in charts) { charts[k]?.destroy(); delete charts[k]; } }
+function normCdf(x) { const t = 1 / (1 + 0.2316419 * Math.abs(x));
+  const d = 0.3989423 * Math.exp(-x * x / 2);
+  let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))));
+  return x > 0 ? 1 - p : p; }
 
 function pwHeader() { const pw = sessionStorage.getItem("journal_pw"); return pw ? { "x-app-password": pw } : {}; }
 async function api(path, opts = {}) {
@@ -188,92 +259,146 @@ async function api(path, opts = {}) {
 $("#pwBtn").addEventListener("click", () => { sessionStorage.setItem("journal_pw", $("#pwInput").value); $("#pwBar").style.display = "none"; load(); });
 $("#pwInput").addEventListener("keydown", e => { if (e.key === "Enter") $("#pwBtn").click(); });
 
+const retPct = t => { const base = Number(t.entry_price) * Number(t.quantity); return t.pnl != null && base ? t.pnl / base * 100 : null; };
+
+/* Tiltmeter: EMA (span 10) of per-trade results in R (fallback pnl / avg|pnl|). */
+function computeTilt(closedSorted) {
+  const absAvg = closedSorted.length ? closedSorted.reduce((s, t) => s + Math.abs(t.pnl), 0) / closedSorted.length : 1;
+  const alpha = 2 / 11;
+  let ema = null;
+  const map = new Map();
+  closedSorted.forEach((t, i) => {
+    const r = t.r != null ? t.r : (absAvg ? t.pnl / absAvg : 0);
+    ema = ema == null ? r : alpha * r + (1 - alpha) * ema;
+    map.set(t.id, i < 3 ? null : ema);
+  });
+  return map;
+}
+
 /* ================= filtering & stats ================= */
 function filtered() {
   let t = [...all];
   const v = id => $(id).value;
+  if (v("#fAccount")) t = t.filter(x => x.account === v("#fAccount"));
   if (v("#fSymbol")) t = t.filter(x => x.symbol === v("#fSymbol"));
-  if (v("#fAsset")) t = t.filter(x => x.asset_type === v("#fAsset"));
-  if (v("#fStyle")) t = t.filter(x => x.style === v("#fStyle"));
-  if (v("#fDirection")) t = t.filter(x => x.direction === v("#fDirection"));
   if (v("#fSetup")) t = t.filter(x => x.setup === v("#fSetup"));
+  if (v("#fDirection")) t = t.filter(x => x.direction === v("#fDirection"));
   if (v("#fOutcome") === "win") t = t.filter(x => x.pnl != null && x.pnl > 0);
-  if (v("#fOutcome") === "loss") t = t.filter(x => x.pnl != null && x.pnl <= 0);
-  if (v("#fOutcome") === "open") t = t.filter(x => x.pnl == null);
-  if (v("#fStarred") === "yes") t = t.filter(x => x.starred);
+  if (v("#fOutcome") === "loss") t = t.filter(x => x.pnl != null && x.pnl < 0);
+  if (v("#fOutcome") === "be") t = t.filter(x => x.pnl === 0);
+  if (v("#fStatus") === "closed") t = t.filter(x => x.pnl != null);
+  if (v("#fStatus") === "open") t = t.filter(x => x.pnl == null);
   if (v("#fYear")) t = t.filter(x => new Date(x.entry_date).getFullYear() === +v("#fYear"));
   if (v("#fMonth")) t = t.filter(x => new Date(x.entry_date).getMonth() === +v("#fMonth"));
-  if (v("#fLast")) t = t.slice(0, +v("#fLast")); // list is newest-first
+  if (v("#fDay")) t = t.filter(x => (new Date(x.entry_date).getDay() + 6) % 7 === +v("#fDay"));
+  if (v("#fHour")) t = t.filter(x => new Date(x.entry_date).getHours() === +v("#fHour"));
+  if (v("#fStarred") === "yes") t = t.filter(x => x.starred);
+  const fr = v("#fReturn");
+  if (fr) t = t.filter(x => { const p = retPct(x); if (p == null) return false;
+    return fr === "gt0" ? p > 0 : fr === "gte1" ? p >= 1 : fr === "gte5" ? p >= 5 :
+           fr === "lt0" ? p < 0 : fr === "lte-1" ? p <= -1 : p <= -5; });
+  const rr = v("#fR");
+  if (rr) t = t.filter(x => { if (x.r == null) return false;
+    return rr === "gt2" ? x.r > 2 : rr === "1to2" ? x.r >= 1 && x.r <= 2 : rr === "0to1" ? x.r >= 0 && x.r < 1 :
+           rr === "-1to0" ? x.r >= -1 && x.r < 0 : x.r < -1; });
+  if (v("#fLast")) t = t.slice(0, +v("#fLast"));
   return t;
 }
 
 function computeStats(trades) {
   const closed = trades.filter(t => t.pnl != null)
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date));
-  const wins = closed.filter(t => t.pnl > 0), losses = closed.filter(t => t.pnl <= 0);
+  const wins = closed.filter(t => t.pnl > 0), losses = closed.filter(t => t.pnl < 0), be = closed.filter(t => t.pnl === 0);
   const sum = a => a.reduce((s, t) => s + t.pnl, 0);
   const net = sum(closed);
   let cum = 0, peak = 0, maxDD = 0;
   const equity = closed.map(t => { cum += t.pnl; peak = Math.max(peak, cum); maxDD = Math.max(maxDD, peak - cum); return { t, value: cum, dd: cum - peak }; });
   let ws = 0, ls = 0, maxWS = 0, maxLS = 0;
-  for (const t of closed) { if (t.pnl > 0) { ws++; ls = 0; } else { ls++; ws = 0; } maxWS = Math.max(maxWS, ws); maxLS = Math.max(maxLS, ls); }
+  for (const t of closed) { if (t.pnl > 0) { ws++; ls = 0; } else if (t.pnl < 0) { ls++; ws = 0; } maxWS = Math.max(maxWS, ws); maxLS = Math.max(maxLS, ls); }
   const mean = closed.length ? net / closed.length : 0;
   const std = closed.length ? Math.sqrt(closed.reduce((s, t) => s + (t.pnl - mean) ** 2, 0) / closed.length) : 0;
   const holds = closed.filter(t => t.exit_date).map(t => new Date(t.exit_date) - new Date(t.entry_date));
-  const avgHold = holds.length ? holds.reduce((a, b) => a + b, 0) / holds.length : null;
   const withR = closed.filter(t => t.r != null);
+  const decided = wins.length + losses.length;
   return {
-    closed, wins, losses, net,
+    closed, wins, losses, be, net,
     winrate: closed.length ? wins.length / closed.length : 0,
+    winrateDecided: decided ? wins.length / decided : 0,
     avgWin: wins.length ? sum(wins) / wins.length : 0,
     avgLoss: losses.length ? sum(losses) / losses.length : 0,
     profitFactor: sum(losses) !== 0 ? Math.abs(sum(wins) / sum(losses)) : null,
-    expectancy: mean, std, maxDD, equity, maxWS, maxLS, avgHold,
+    expectancy: mean, std, maxDD, equity, maxWS, maxLS,
+    avgHold: holds.length ? holds.reduce((a, b) => a + b, 0) / holds.length : null,
     avgR: withR.length ? withR.reduce((s, t) => s + t.r, 0) / withR.length : null,
     largestWin: wins.length ? Math.max(...wins.map(t => t.pnl)) : 0,
     largestLoss: losses.length ? Math.min(...losses.map(t => t.pnl)) : 0,
     volume: closed.reduce((s, t) => s + Number(t.entry_price) * Number(t.quantity), 0),
     openCount: trades.filter(t => t.pnl == null).length,
+    tilt: computeTilt(closed),
   };
 }
 const fmtHold = ms => { if (ms == null) return "—"; const h = ms / 3.6e6; if (h < 1) return Math.round(ms / 6e4) + "m"; if (h < 48) return h.toFixed(1) + "h"; return (h / 24).toFixed(1) + "d"; };
 
-/* ================= chart defaults ================= */
 Chart.defaults.color = css("--muted");
 Chart.defaults.borderColor = "#1c1e20";
 Chart.defaults.font.family = css("--mono") || "monospace";
 Chart.defaults.font.size = 10;
 const noLegend = { plugins: { legend: { display: false } } };
-
+const kTicks = { callback: v => Math.abs(v) >= 1000 ? (v / 1000) + "K" : v };
 function lineColorBySign(ctx) { return (ctx.p1?.parsed.y ?? 0) >= 0 ? css("--gain") : css("--loss"); }
+const unitVal = t => eqUnit === "$" ? t.pnl : eqUnit === "%" ? (retPct(t) ?? 0) : (t.r ?? 0);
+const unitFmt = v => eqUnit === "$" ? smoney(v) : (v >= 0 ? "+" : "") + v.toFixed(2) + (eqUnit === "%" ? "%" : "R");
+const unitSel = id => `<div><div class="lbl">Display</div>
+  <select id="${id}"><option value="$" ${eqUnit === "$" ? "selected" : ""}>Return ($)</option><option value="%" ${eqUnit === "%" ? "selected" : ""}>Return (%)</option><option value="R" ${eqUnit === "R" ? "selected" : ""}>Return (R)</option></select></div>`;
+const bindUnit = id => $("#" + id).addEventListener("change", e => { eqUnit = e.target.value; render(); });
+const scard = (k, v, colorCls = "", edge = "", s = "") =>
+  `<div class="scard ${edge}"><div class="k">${k}</div><div class="v ${colorCls}">${v}</div>${s ? `<div class="s">${s}</div>` : ""}</div>`;
+const unitCards = s => {
+  const vals = s.closed.map(unitVal);
+  const tot = vals.reduce((a, b) => a + b, 0);
+  const wv = s.closed.filter(x => x.pnl > 0).map(unitVal), lv = s.closed.filter(x => x.pnl < 0).map(unitVal);
+  const avg = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  return `<div class="cards">
+    ${scard("Avg. Return (" + eqUnit + ")", unitFmt(s.closed.length ? tot / s.closed.length : 0), cls(tot), tot >= 0 ? "g" : "r", s.closed.length + " trades")}
+    ${scard("Total Return (" + eqUnit + ")", unitFmt(tot), cls(tot), tot >= 0 ? "g" : "r", "Sum across every trade in view")}
+    ${scard("Avg. Return (" + eqUnit + ") Winner", unitFmt(avg(wv)), "gain", "g", s.wins.length + " winners")}
+    ${scard("Avg. Return (" + eqUnit + ") Loser", unitFmt(avg(lv)), "loss", "r", s.losses.length + " losers")}
+  </div>`;
+};
 
-/* ================= views ================= */
+/* ================= render root ================= */
+const VIEWS = {};
 function render() {
   destroyCharts();
   const t = filtered();
   const s = computeStats(t);
+  $("#filterWrap").style.display = (view === "ev" || view === "sim") ? "none" : "";
   $("#countLine").textContent = `${t.length} trades in view`;
-  const R = { dashboard, trades: tradesView, equity: equityView, calendar: calendarView,
-              fullscan: fullScan, distribution, bytime: byTime, streaks: streaksView, chartbook }[view];
-  R(t, s);
+  VIEWS[view](t, s);
 }
 
 /* ---- dashboard ---- */
-function dashboard(t, s) {
+function rangeLabel(s) {
+  if (!s.closed.length) return "";
+  const a = new Date(s.closed[0].exit_date), b = new Date(s.closed[s.closed.length - 1].exit_date);
+  const days = Math.max(1, Math.round((b - a) / 8.64e7));
+  return `${dt(a).slice(0, 9)} – ${dt(b).slice(0, 9)} (${days} days)`;
+}
+VIEWS.dashboard = function (t, s) {
+  const ratio = s.avgLoss ? Math.abs(s.avgWin / s.avgLoss) : null;
   $("#view").innerHTML = `
     <div class="grid">
       <div class="kpis">
         <div class="kpi"><div><div class="label">Net Return</div><div class="big ${cls(s.net)}">${smoney(s.net)}</div></div><canvas id="spark"></canvas></div>
-        <div class="kpi"><div><div class="label">Winrate</div><div class="big">${(s.winrate * 100).toFixed(2)}%</div><div class="small"><span class="gain">${s.wins.length}</span> / <span class="loss">${s.losses.length}</span></div></div><canvas id="donut"></canvas></div>
-        <div class="kpi"><div><div class="label">Avg Return</div><div class="big ${cls(s.expectancy)}">${smoney(s.expectancy)}</div><div class="small">per closed trade</div></div></div>
-        <div class="kpi"><div style="width:100%"><div class="label">Avg Win : Avg Loss ${s.avgLoss ? (Math.abs(s.avgWin / s.avgLoss)).toFixed(2) + ":1" : ""}</div>
+        <div class="kpi"><div><div class="label">Winrate</div><div class="big">${(s.winrate * 100).toFixed(2)}%</div><div class="small"><span class="gain">${s.wins.length}</span> · ${s.be.length} · <span class="loss">${s.losses.length}</span></div></div><canvas id="donut"></canvas></div>
+        <div class="kpi"><div><div class="label">Avg. Return</div><div class="big ${cls(s.expectancy)}">${smoney(s.expectancy)}</div><div class="small">per closed trade</div></div></div>
+        <div class="kpi"><div style="width:100%"><div class="label">${ratio ? ratio.toFixed(2) + ":1" : "Win : Loss"}</div>
           <div style="display:flex;height:9px;border-radius:5px;overflow:hidden;margin-top:8px;background:#191b19">
             <div style="background:var(--gain);width:${s.avgWin + Math.abs(s.avgLoss) ? (s.avgWin / (s.avgWin + Math.abs(s.avgLoss)) * 100) : 50}%"></div>
             <div style="background:var(--loss);flex:1"></div></div>
           <div class="small"><span class="gain">${smoney(s.avgWin)}</span> · <span class="loss">${smoney(s.avgLoss)}</span></div></div></div>
         <div class="kpi"><div><div class="label">Profit Factor</div><div class="big">${s.profitFactor == null ? "—" : s.profitFactor.toFixed(2)}</div><div class="small">${s.openCount} open position${s.openCount === 1 ? "" : "s"}</div></div></div>
       </div>
-
       <div class="dash-grid">
         <div class="panel">
           <h2><span>PNL ($) <span class="muted" style="font-weight:400">${rangeLabel(s)}</span></span>
@@ -282,7 +407,7 @@ function dashboard(t, s) {
               <button data-tab="drawdown" class="${pnlTab === "drawdown" ? "on" : ""}">Drawdown</button>
               <button data-tab="table" class="${pnlTab === "table" ? "on" : ""}">Table</button>
             </span></h2>
-          <div id="pnlBody">${pnlTab === "table" ? pnlTable(s) : '<canvas id="pnlChart" height="120"></canvas>'}</div>
+          <div>${pnlTab === "table" ? pnlTable(s) : '<canvas id="pnlChart" height="120"></canvas>'}</div>
         </div>
         <div class="panel">
           <h2>Expectancy &amp; Risk</h2>
@@ -300,45 +425,30 @@ function dashboard(t, s) {
           </div>
         </div>
       </div>
-
       <div class="dash-grid2">
         <div class="panel"><h2>Trade Result By Day</h2><canvas id="byDay" height="150"></canvas></div>
         <div class="panel"><h2>Trade Result By Time</h2><canvas id="byHour" height="150"></canvas></div>
       </div>
     </div>`;
-
-  document.querySelectorAll("#pnlBody, .tabs button").forEach(() => {});
   document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { pnlTab = b.dataset.tab; render(); }));
-
-  // sparkline + donut
   chart("spark", { type: "line", data: { labels: s.equity.map((_, i) => i), datasets: [{ data: s.equity.map(p => p.value), borderColor: css("--gain"), borderWidth: 1.5, pointRadius: 0, tension: .3 }] },
     options: { ...noLegend, scales: { x: { display: false }, y: { display: false } }, animation: false } });
   chart("donut", { type: "doughnut", data: { labels: ["wins", "losses"], datasets: [{ data: [s.wins.length, s.losses.length], backgroundColor: [css("--gain"), css("--loss")], borderWidth: 0 }] },
     options: { ...noLegend, cutout: "72%", animation: false } });
-
   if (pnlTab !== "table") drawPnl(s);
-  drawGrouped("byDay", s.closed, tt => (new Date(tt.exit_date).getDay() + 6) % 7, DOW);
-  drawGrouped("byHour", s.closed, tt => new Date(tt.entry_date).getHours(), [...Array(24).keys()].map(h => String(h).padStart(2, "0")));
-}
-
-function rangeLabel(s) {
-  if (!s.closed.length) return "";
-  const a = new Date(s.closed[0].exit_date), b = new Date(s.closed[s.closed.length - 1].exit_date);
-  const days = Math.max(1, Math.round((b - a) / 8.64e7));
-  return `${dt(a).slice(0, 9)} – ${dt(b).slice(0, 9)} (${days} days)`;
-}
-
-function drawPnl(s, id = "pnlChart") {
-  const data = pnlTab === "drawdown" && id === "pnlChart" ? s.equity.map(p => p.dd) : s.equity.map(p => p.value);
-  chart(id, { type: "line",
+  drawGrouped("byDay", s.closed, x => (new Date(x.exit_date).getDay() + 6) % 7, DOW);
+  drawGrouped("byHour", s.closed, x => new Date(x.entry_date).getHours(), [...Array(24).keys()].map(h => String(h).padStart(2, "0")));
+};
+function drawPnl(s) {
+  const data = pnlTab === "drawdown" ? s.equity.map(p => p.dd) : s.equity.map(p => p.value);
+  chart("pnlChart", { type: "line",
     data: { labels: s.equity.map((_, i) => i + 1), datasets: [{ data,
       segment: { borderColor: lineColorBySign }, borderColor: css("--gain"), borderWidth: 1.6, pointRadius: 0, tension: .12,
       fill: { target: "origin", above: "rgba(61,220,132,.09)", below: "rgba(255,93,93,.09)" } }] },
     options: { ...noLegend, animation: false, interaction: { intersect: false, mode: "index" },
       plugins: { ...noLegend.plugins, tooltip: { callbacks: { title: i => s.equity[i[0].dataIndex].t.symbol + " · " + dt(s.equity[i[0].dataIndex].t.exit_date), label: c => smoney(c.parsed.y) } } },
-      scales: { y: { grid: { color: "#141615" }, ticks: { callback: v => (Math.abs(v) >= 1000 ? (v / 1000) + "K" : v) } }, x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } } } } });
+      scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } } } } });
 }
-
 function pnlTable(s) {
   if (!s.closed.length) return '<div class="empty">No closed trades in view.</div>';
   return `<div style="max-height:300px;overflow:auto"><table><thead><tr><th>#</th><th>Symbol</th><th>Exit</th><th class="num">PnL</th><th class="num">Cumulative</th></tr></thead><tbody>
@@ -346,24 +456,47 @@ function pnlTable(s) {
       <td class="num ${cls(p.t.pnl)}">${smoney(p.t.pnl)}</td><td class="num ${cls(p.value)}">${smoney(p.value)}</td></tr>`).join("")}
   </tbody></table></div>`;
 }
-
-function drawGrouped(id, closed, keyFn, labels) {
+function drawGrouped(id, closed, keyFn, labels, valFn = t => t.pnl, fmt = smoney) {
   const sums = labels.map(() => 0);
-  for (const t of closed) sums[keyFn(t)] += t.pnl;
+  for (const t of closed) sums[keyFn(t)] += valFn(t);
   chart(id, { type: "bar", data: { labels, datasets: [{ data: sums, backgroundColor: sums.map(v => v >= 0 ? css("--gain") : css("--loss")), borderRadius: 3 }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, ticks: { callback: v => (Math.abs(v) >= 1000 ? (v / 1000) + "K" : v) } }, x: { grid: { display: false } } },
-      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => smoney(c.parsed.y) } } } } });
+    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { grid: { display: false } } },
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => fmt(c.parsed.y) } } } } });
 }
 
 /* ---- trades ---- */
-function tradesView(t) {
+const tiltBar = v => {
+  if (v == null) return '<span class="muted">—</span>';
+  const c = Math.max(-3, Math.min(3, v)), half = 29;
+  const w = Math.max(2, Math.abs(c) / 3 * half);
+  const left = c >= 0 ? 31 : 31 - w;
+  return `<span class="tiltbar" title="tilt ${v.toFixed(2)}"><i style="left:${left}px;width:${w}px;background:${c >= 0 ? "var(--gain)" : "var(--loss)"}"></i></span>`;
+};
+function sortTrades(t) {
+  const key = { entry: x => +new Date(x.entry_date), exit: x => x.exit_date ? +new Date(x.exit_date) : -Infinity,
+    pnl: x => x.pnl ?? -Infinity, value: x => Number(x.entry_price) * Number(x.quantity) }[sortKey];
+  return [...t].sort((a, b) => (key(a) - key(b)) * sortDir);
+}
+VIEWS.trades = function (t, s) {
+  const accounts = [...new Set(all.map(x => x.account))].sort();
+  const rows = sortTrades(t);
+  const arrow = k => sortKey === k ? (sortDir === 1 ? " ↑" : " ↓") : "";
   $("#view").innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px">
+      <div><h1 class="viewtitle">Trades</h1>
+      <div class="viewdesc" style="margin:0">${t.length} trades across ${new Set(t.map(x => x.account)).size || 1} account${new Set(t.map(x => x.account)).size === 1 ? "" : "s"}</div></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" id="exportBtn">Export CSV</button>
+        <button class="btn" id="newBtn">${showForm ? "Hide form" : "+ Log a trade"}</button>
+      </div>
+    </div>
     <div class="grid">
-      <div class="panel">
+      <div class="panel" id="formPanel" style="${showForm ? "" : "display:none"}">
         <h2 id="formTitle">Log a trade</h2>
         <form class="trade" id="tradeForm">
           <input type="hidden" id="editId">
           <div><label>Symbol</label><input id="in_symbol" placeholder="AAPL / BTC" required></div>
+          <div><label>Account</label><input id="in_account" list="acctDl" value="${esc(accounts[0] || "Main")}"><datalist id="acctDl">${accounts.map(a => `<option value="${esc(a)}">`).join("")}</datalist></div>
           <div><label>Asset</label><select id="in_asset"><option value="stock">Stock</option><option value="crypto">Crypto</option></select></div>
           <div><label>Style</label><select id="in_style"><option value="swing">Swing</option><option value="intraday">Intraday</option></select></div>
           <div><label>Direction</label><select id="in_direction"><option value="long">Long</option><option value="short">Short</option></select></div>
@@ -374,57 +507,70 @@ function tradesView(t) {
           <div><label>Quantity</label><input type="number" step="any" id="in_qty" required></div>
           <div><label>Fees</label><input type="number" step="any" id="in_fees" value="0"></div>
           <div><label>Risk ($ at stop)</label><input type="number" step="any" id="in_risk" placeholder="for R-multiples"></div>
-          <div><label>Setup / tag</label><input id="in_setup" list="setupList" placeholder="breakout, pullback…"><datalist id="setupList"></datalist></div>
+          <div><label>Take profit</label><input type="number" step="any" id="in_tp" placeholder="planned"></div>
+          <div><label>Stop loss</label><input type="number" step="any" id="in_sl" placeholder="planned"></div>
+          <div><label>Max price seen</label><input type="number" step="any" id="in_maxp" placeholder="during trade"></div>
+          <div><label>Min price seen</label><input type="number" step="any" id="in_minp" placeholder="during trade"></div>
+          <div><label>Setup / tag</label><input id="in_setup" list="setupList" placeholder="breakout…"><datalist id="setupList"></datalist></div>
           <div class="full"><label>Notes</label><textarea id="in_notes" rows="2" placeholder="Why did you take it? What did you learn?"></textarea></div>
           <div><button class="btn" id="saveBtn">Save trade</button></div>
           <div><button type="button" class="btn ghost" id="cancelEdit" style="display:none">Cancel edit</button></div>
         </form>
       </div>
       <div class="panel">
-        <h2><span>Trades</span><button class="btn ghost" id="exportBtn" style="padding:4px 10px;font-size:11px">Export CSV</button></h2>
         <div style="overflow-x:auto"><table><thead><tr>
-          <th></th><th>Symbol</th><th>Dir</th><th>Style</th><th>Entry</th><th>Exit</th>
-          <th class="num">Entry px</th><th class="num">Exit px</th><th class="num">Qty</th>
-          <th class="num">PnL</th><th class="num">R</th><th>Setup</th><th>Notes</th><th></th></tr></thead>
-          <tbody>${t.map(rowHtml).join("")}</tbody></table></div>
-        ${t.length ? "" : '<div class="empty">No trades match the current filters.</div>'}
+          <th></th><th>Pair</th><th>Side</th><th>Account</th>
+          <th class="sortable" data-sort="entry">Entry Time${arrow("entry")}</th>
+          <th class="sortable" data-sort="exit">Exit Time${arrow("exit")}</th>
+          <th class="num">Entry Price</th><th class="num">Exit Price</th>
+          <th>Tilt</th>
+          <th class="num sortable" data-sort="value">Value${arrow("value")}</th>
+          <th class="num sortable" data-sort="pnl">PnL${arrow("pnl")}</th>
+          <th class="num">R</th><th>Setup</th><th></th></tr></thead>
+          <tbody>${rows.map(x => rowHtml(x, s)).join("")}</tbody></table></div>
+        ${rows.length ? "" : '<div class="empty">No trades match the current filters.</div>'}
       </div>
     </div>`;
   const setups = [...new Set(all.map(x => x.setup).filter(Boolean))].sort();
   $("#setupList").innerHTML = setups.map(x => `<option value="${esc(x)}">`).join("");
   $("#in_entry").value = new Date(Date.now() - new Date().getTimezoneOffset() * 6e4).toISOString().slice(0, 16);
   $("#tradeForm").addEventListener("submit", submitTrade);
-  $("#cancelEdit").addEventListener("click", () => { view = "trades"; render(); });
-  $("#exportBtn").addEventListener("click", () => exportCsv(t));
-}
-
-const rowHtml = t => `<tr>
+  $("#cancelEdit").addEventListener("click", () => { showForm = false; render(); });
+  $("#exportBtn").addEventListener("click", () => exportCsv(rows));
+  $("#newBtn").addEventListener("click", () => { showForm = !showForm; render(); });
+  document.querySelectorAll("th.sortable").forEach(h => h.addEventListener("click", () => {
+    const k = h.dataset.sort;
+    if (sortKey === k) sortDir *= -1; else { sortKey = k; sortDir = -1; }
+    render();
+  }));
+};
+const rowHtml = (t, s) => `<tr>
   <td><button class="rowbtn star ${t.starred ? "on" : ""}" onclick="toggleStar(${t.id})" title="Star">★</button></td>
-  <td><strong>${esc(t.symbol)}</strong></td>
+  <td><strong>${esc(t.symbol)}</strong>${t.style === "intraday" ? ' <span class="muted" title="intraday">•</span>' : ""}</td>
   <td><span class="badge ${t.direction}">${t.direction === "long" ? "Long" : "Short"}</span></td>
-  <td class="muted">${t.style}</td>
-  <td class="muted">${dt(t.entry_date)}</td>
-  <td class="muted">${dt(t.exit_date)}</td>
-  <td class="num">${Number(t.entry_price)}</td>
-  <td class="num">${t.exit_price != null ? Number(t.exit_price) : ""}</td>
-  <td class="num">${Number(t.quantity)}</td>
+  <td class="muted">${esc(t.account)}</td>
+  <td class="muted">${dtFull(t.entry_date)}</td>
+  <td class="muted">${dtFull(t.exit_date)}</td>
+  <td class="num">${Number(t.entry_price).toLocaleString()}</td>
+  <td class="num">${t.exit_price != null ? Number(t.exit_price).toLocaleString() : ""}</td>
+  <td>${tiltBar(s.tilt.get(t.id))}</td>
+  <td class="num">${money(Number(t.entry_price) * Number(t.quantity))}</td>
   <td class="num ${t.pnl == null ? "" : cls(t.pnl)}">${t.pnl == null ? '<span class="open-badge">OPEN</span>' : smoney(t.pnl)}</td>
   <td class="num ${t.r == null ? "" : cls(t.r)}">${t.r == null ? "" : t.r.toFixed(2) + "R"}</td>
   <td>${t.setup ? `<span class="tag">${esc(t.setup)}</span>` : ""}</td>
-  <td class="muted" style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${esc(t.notes)}">${esc(t.notes)}</td>
   <td style="white-space:nowrap"><button class="rowbtn" onclick="editTrade(${t.id})">edit</button><button class="rowbtn" onclick="delTrade(${t.id})">✕</button></td>
 </tr>`;
-
-function formVal(id) { const v = $(id).value; return v === "" ? null : v; }
 function formNum(id) { const v = $(id).value; return v === "" ? null : +v; }
 function tradeBody() {
   return {
-    symbol: $("#in_symbol").value.trim(), asset_type: $("#in_asset").value,
-    style: $("#in_style").value, direction: $("#in_direction").value,
-    entry_date: formVal("#in_entry") ? new Date($("#in_entry").value).toISOString() : null,
-    exit_date: formVal("#in_exit") ? new Date($("#in_exit").value).toISOString() : null,
+    symbol: $("#in_symbol").value.trim(), account: $("#in_account").value.trim() || "Main",
+    asset_type: $("#in_asset").value, style: $("#in_style").value, direction: $("#in_direction").value,
+    entry_date: $("#in_entry").value ? new Date($("#in_entry").value).toISOString() : null,
+    exit_date: $("#in_exit").value ? new Date($("#in_exit").value).toISOString() : null,
     entry_price: formNum("#in_eprice"), exit_price: formNum("#in_xprice"),
     quantity: formNum("#in_qty"), fees: formNum("#in_fees") || 0, risk: formNum("#in_risk"),
+    take_profit: formNum("#in_tp"), stop_loss: formNum("#in_sl"),
+    max_price: formNum("#in_maxp"), min_price: formNum("#in_minp"),
     setup: $("#in_setup").value.trim() || null, notes: $("#in_notes").value.trim() || null,
     starred: all.find(x => x.id === +$("#editId").value)?.starred === true,
   };
@@ -435,19 +581,21 @@ async function submitTrade(e) {
   try {
     if (id) { await api(`/api/trades/${id}`, { method: "PUT", body: JSON.stringify(tradeBody()) }); toast("Trade updated"); }
     else { await api("/api/trades", { method: "POST", body: JSON.stringify(tradeBody()) }); toast("Trade saved"); }
-    await load();
+    showForm = false; await load();
   } catch (err) { toast(err.message); }
 }
 const localDT = s => { if (!s) return ""; const d = new Date(s); return new Date(d - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 16); };
 window.editTrade = id => {
-  if (view !== "trades") { view = "trades"; render(); }
+  view = "trades"; showForm = true; syncNav(); render();
   const t = all.find(x => x.id === id); if (!t) return;
   $("#editId").value = t.id;
-  $("#in_symbol").value = t.symbol; $("#in_asset").value = t.asset_type;
-  $("#in_style").value = t.style; $("#in_direction").value = t.direction;
+  $("#in_symbol").value = t.symbol; $("#in_account").value = t.account;
+  $("#in_asset").value = t.asset_type; $("#in_style").value = t.style; $("#in_direction").value = t.direction;
   $("#in_entry").value = localDT(t.entry_date); $("#in_exit").value = localDT(t.exit_date);
   $("#in_eprice").value = t.entry_price; $("#in_xprice").value = t.exit_price ?? "";
   $("#in_qty").value = t.quantity; $("#in_fees").value = t.fees; $("#in_risk").value = t.risk ?? "";
+  $("#in_tp").value = t.take_profit ?? ""; $("#in_sl").value = t.stop_loss ?? "";
+  $("#in_maxp").value = t.max_price ?? ""; $("#in_minp").value = t.min_price ?? "";
   $("#in_setup").value = t.setup ?? ""; $("#in_notes").value = t.notes ?? "";
   $("#formTitle").textContent = `Editing #${t.id} · ${t.symbol}`;
   $("#saveBtn").textContent = "Update trade"; $("#cancelEdit").style.display = "inline-block";
@@ -462,7 +610,7 @@ window.toggleStar = async id => {
   try { await api(`/api/trades/${id}`, { method: "PATCH", body: JSON.stringify({ starred: !t.starred }) }); t.starred = !t.starred; render(); } catch (e) { toast(e.message); }
 };
 function exportCsv(t) {
-  const cols = ["id","symbol","asset_type","style","direction","entry_date","exit_date","entry_price","exit_price","quantity","fees","risk","pnl","r","setup","notes","starred"];
+  const cols = ["id","symbol","account","asset_type","style","direction","entry_date","exit_date","entry_price","exit_price","quantity","fees","risk","take_profit","stop_loss","max_price","min_price","pnl","r","setup","notes","starred"];
   const csv = [cols.join(","), ...t.map(x => cols.map(c => {
     let v = x[c]; v = v == null ? "" : String(v);
     return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
@@ -471,70 +619,149 @@ function exportCsv(t) {
   a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" })); a.download = "trades.csv"; a.click();
 }
 
-/* ---- equity ---- */
-function equityView(t, s) {
+/* ---- equity graph ---- */
+VIEWS.equity = function (t, s) {
   $("#view").innerHTML = `
     <h1 class="viewtitle">Equity Graph</h1>
-    <div class="viewdesc">Cumulative closed P&amp;L and drawdown for the trades in view.</div>
-    <div class="grid">
-      <div class="panel"><h2>Equity</h2><canvas id="eqBig" height="110"></canvas></div>
-      <div class="panel"><h2>Drawdown</h2><canvas id="ddBig" height="70"></canvas></div>
+    <div class="viewdesc">Your account as one running total, trade by trade — read in dollars, percent, or R, with the layers you want on top.</div>
+    <div class="display-row">
+      ${unitSel("eqUnitSel")}
+      <div><div class="lbl">Options</div>
+        <select id="eqTiltSel"><option value="on" ${eqTilt ? "selected" : ""}>Display Tiltmeter</option><option value="off" ${eqTilt ? "" : "selected"}>Hide Tiltmeter</option></select></div>
+    </div>
+    <div class="panel">
+      <div style="text-align:right;font-size:11px;color:var(--muted);margin-bottom:6px">Return (${esc(eqUnit)}) ${eqTilt ? '· <span class="gain">●</span> Tiltmeter' : ""}</div>
+      <canvas id="eqMain" height="120"></canvas>
     </div>`;
-  chart("eqBig", { type: "line", data: { labels: s.equity.map((_, i) => i + 1), datasets: [{ data: s.equity.map(p => p.value),
-    segment: { borderColor: lineColorBySign }, borderWidth: 1.6, pointRadius: 0, tension: .12,
-    fill: { target: "origin", above: "rgba(61,220,132,.09)", below: "rgba(255,93,93,.09)" } }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" } }, x: { grid: { display: false }, ticks: { maxTicksLimit: 14 } } } } });
-  chart("ddBig", { type: "line", data: { labels: s.equity.map((_, i) => i + 1), datasets: [{ data: s.equity.map(p => p.dd),
-    borderColor: css("--loss"), borderWidth: 1.4, pointRadius: 0, tension: .12, fill: { target: "origin", below: "rgba(255,93,93,.12)", above: "rgba(255,93,93,.12)" } }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" } }, x: { display: false } } } });
-}
+  bindUnit("eqUnitSel");
+  $("#eqTiltSel").addEventListener("change", e => { eqTilt = e.target.value === "on"; render(); });
+  if (!s.closed.length) return;
+  let cum = 0;
+  const line = s.closed.map(x => (cum += unitVal(x)));
+  const bars = s.closed.map(x => eqTilt ? (s.tilt.get(x.id) ?? 0) : unitVal(x));
+  chart("eqMain", { type: "bar",
+    data: { labels: s.closed.map((_, i) => i + 1), datasets: [
+      { type: "line", data: line, yAxisID: "y1", segment: { borderColor: lineColorBySign }, borderWidth: 1.7, pointRadius: 0, tension: .15,
+        fill: { target: "origin", above: "rgba(61,220,132,.06)", below: "rgba(255,93,93,.10)" }, order: 0 },
+      { type: "bar", data: bars, yAxisID: "y", backgroundColor: bars.map(v => v >= 0 ? "rgba(61,220,132,.55)" : "rgba(255,93,93,.55)"), borderRadius: 2, order: 1 },
+    ] },
+    options: { ...noLegend, animation: false, interaction: { intersect: false, mode: "index" },
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: {
+        title: i => { const x = s.closed[i[0].dataIndex]; return `#${i[0].dataIndex + 1} · ${x.symbol} · ${dt(x.exit_date)}`; },
+        label: c => c.dataset.type === "line" ? "Cumulative: " + unitFmt(c.parsed.y) : (eqTilt ? "Tilt: " + c.parsed.y.toFixed(2) : "Trade: " + unitFmt(c.parsed.y)) } } },
+      scales: {
+        y: { position: "left", grid: { color: "#141615" }, title: { display: true, text: eqTilt ? "Tiltmeter" : `Trade (${eqUnit})` } },
+        y1: { position: "right", grid: { display: false }, ticks: eqUnit === "$" ? kTicks : {}, title: { display: true, text: `Cumulative (${eqUnit})` } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 14 }, title: { display: true, text: "Trades" } } } } });
+};
 
 /* ---- calendar ---- */
-function calendarView(t) {
-  const y = calMonth.getFullYear(), m = calMonth.getMonth();
-  const byDayMap = {};
-  for (const x of t) if (x.pnl != null && x.exit_date) {
-    const k = dayKey(x.exit_date); byDayMap[k] ??= { pnl: 0, n: 0 }; byDayMap[k].pnl += x.pnl; byDayMap[k].n++;
+function periodKeyAndLabel(d) {
+  d = new Date(d);
+  if (calPeriod === "daily") return { k: dayKey(d), label: null };
+  if (calPeriod === "weekly") { const t = new Date(d); t.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return { k: "W" + dayKey(t), label: "Wk " + `${String(t.getDate()).padStart(2,"0")} ${MONTHS[t.getMonth()]}` }; }
+  if (calPeriod === "monthly") return { k: `M${d.getFullYear()}-${d.getMonth()}`, label: `${MONTHS[d.getMonth()]} ${d.getFullYear()}` };
+  return { k: `Q${d.getFullYear()}-${Math.floor(d.getMonth() / 3)}`, label: `Q${Math.floor(d.getMonth() / 3) + 1} ${d.getFullYear()}` };
+}
+function calDateOf(t) { return calGroupBy === "open" ? t.entry_date : (t.exit_date || t.entry_date); }
+VIEWS.calendar = function (t) {
+  const closed = t.filter(x => x.pnl != null);
+  const map = {};
+  for (const x of closed) { const { k } = periodKeyAndLabel(calDateOf(x)); (map[k] ??= { pnl: 0, n: 0, trades: [] }); map[k].pnl += x.pnl; map[k].n++; map[k].trades.push(x); }
+  const y = calAnchor.getFullYear(), m = calAnchor.getMonth();
+  let bodyHtml = "", navLabel = "";
+  const cell = (k, title, dnum, extraCls = "") => {
+    const v = map[k];
+    return `<div class="cal-cell ${extraCls} ${v ? (v.pnl >= 0 ? "win" : "lose") : ""} ${calSel === k ? "sel" : ""}" data-k="${k}">
+      ${dnum != null ? `<div class="d">${dnum}</div>` : ""}
+      ${title ? `<div class="muted" style="font-size:10px">${title}</div>` : ""}
+      <div class="p ${v ? cls(v.pnl) : "muted"}">${v ? kfmt(v.pnl) : "–"}</div>
+      <div class="n">${v ? v.n + " trade" + (v.n > 1 ? "s" : "") : "No trades"}</div></div>`;
+  };
+  if (calPeriod === "daily") {
+    navLabel = `${MONTHS[m]} ${y}`;
+    const first = new Date(y, m, 1), startPad = (first.getDay() + 6) % 7;
+    const daysIn = new Date(y, m + 1, 0).getDate();
+    const prevDays = new Date(y, m, 0).getDate();
+    let cells = "";
+    for (let i = startPad - 1; i >= 0; i--) cells += cell(dayKey(new Date(y, m - 1, prevDays - i)), null, prevDays - i, "out");
+    for (let d = 1; d <= daysIn; d++) cells += cell(dayKey(new Date(y, m, d)), null, d);
+    const total = 7 - ((startPad + daysIn) % 7 || 7);
+    for (let d = 1; d <= total; d++) cells += cell(dayKey(new Date(y, m + 1, d)), null, d, "out");
+    bodyHtml = `<div class="cal-dowbar">${DOW.map(d => `<div class="cal-dow">${d}</div>`).join("")}</div><div class="cal-grid">${cells}</div>`;
+  } else if (calPeriod === "weekly") {
+    navLabel = `${MONTHS[m]} ${y}`;
+    let mon = new Date(y, m, 1); mon.setDate(mon.getDate() - ((mon.getDay() + 6) % 7));
+    let cells = "";
+    for (let i = 0; i < 8; i++) { const { k, label } = periodKeyAndLabel(mon); cells += cell(k, label, null); mon = new Date(mon); mon.setDate(mon.getDate() + 7); }
+    bodyHtml = `<div class="cal-grid wide">${cells}</div>`;
+  } else if (calPeriod === "monthly") {
+    navLabel = `${y}`;
+    bodyHtml = `<div class="cal-grid wide">${MONTHS.map((mm, i) => cell(`M${y}-${i}`, `${mm} ${y}`, null)).join("")}</div>`;
+  } else {
+    navLabel = `${y}`;
+    bodyHtml = `<div class="cal-grid wide">${[0,1,2,3].map(q => cell(`Q${y}-${q}`, `Q${q + 1} ${y}`, null)).join("")}</div>`;
   }
-  const first = new Date(y, m, 1), startPad = (first.getDay() + 6) % 7;
-  const daysIn = new Date(y, m + 1, 0).getDate();
-  const monthTotal = Object.entries(byDayMap).filter(([k]) => k.startsWith(`${y}-${m}-`)).reduce((s, [, v]) => s + v.pnl, 0);
-  let cells = "";
-  for (let i = 0; i < startPad; i++) cells += `<div class="cal-cell out"></div>`;
-  for (let d = 1; d <= daysIn; d++) {
-    const v = byDayMap[`${y}-${m}-${d}`];
-    cells += `<div class="cal-cell ${v ? (v.pnl >= 0 ? "win" : "lose") : ""}"><div class="d">${d}</div>
-      ${v ? `<div class="p ${cls(v.pnl)}">${smoney(v.pnl)}</div><div class="n">${v.n} trade${v.n > 1 ? "s" : ""}</div>` : ""}</div>`;
-  }
+  const inScope = calPeriod === "daily" || calPeriod === "weekly"
+    ? closed.filter(x => { const d = new Date(calDateOf(x)); return d.getFullYear() === y && d.getMonth() === m; })
+    : closed.filter(x => new Date(calDateOf(x)).getFullYear() === y);
+  const monthTotal = inScope.reduce((s, x) => s + x.pnl, 0);
   $("#view").innerHTML = `
     <h1 class="viewtitle">Calendar</h1>
-    <div class="viewdesc">Daily closed P&amp;L. Days are attributed by exit date.</div>
+    <div class="viewdesc">Your PNL on a calendar — every square is a day, week, month or quarter. Click a square to pull out its equity curve and trades.</div>
     <div class="panel">
-      <div class="cal-head">
-        <button class="btn ghost" id="calPrev">‹</button>
-        <strong>${MONTHS[m]} ${y}</strong>
-        <button class="btn ghost" id="calNext">›</button>
-        <span class="muted" style="margin-left:auto">Month total: <span class="${cls(monthTotal)}">${smoney(monthTotal)}</span></span>
+      <div class="cal-toolbar">
+        <span class="tabs">${["daily","weekly","monthly","quarterly"].map(p => `<button data-p="${p}" class="${calPeriod === p ? "on" : ""}">${p[0].toUpperCase() + p.slice(1)}</button>`).join("")}</span>
+        <div class="cal-nav">
+          <button class="btn ghost" id="calPrev">‹</button><strong>${navLabel}</strong><button class="btn ghost" id="calNext">›</button>
+        </div>
+        <div><span class="lbl" style="display:inline;margin-right:8px">Group by</span>
+          <select class="ctl" style="width:auto" id="calGroup"><option value="close" ${calGroupBy === "close" ? "selected" : ""}>Close date</option><option value="open" ${calGroupBy === "open" ? "selected" : ""}>Open date</option></select>
+          <span class="muted" style="margin-left:14px">Total: <span class="${cls(monthTotal)}">${smoney(monthTotal)}</span></span></div>
       </div>
-      <div class="cal-grid">${DOW.map(d => `<div class="cal-dow">${d}</div>`).join("")}${cells}</div>
+      ${bodyHtml}
+      <div id="calDetail" style="margin-top:14px"></div>
     </div>`;
-  $("#calPrev").addEventListener("click", () => { calMonth = new Date(y, m - 1, 1); render(); });
-  $("#calNext").addEventListener("click", () => { calMonth = new Date(y, m + 1, 1); render(); });
+  document.querySelectorAll(".tabs button[data-p]").forEach(b => b.addEventListener("click", () => { calPeriod = b.dataset.p; calSel = null; render(); }));
+  const step = calPeriod === "monthly" || calPeriod === "quarterly" ? 12 : 1;
+  $("#calPrev").addEventListener("click", () => { calAnchor = new Date(y, m - step, 1); calSel = null; render(); });
+  $("#calNext").addEventListener("click", () => { calAnchor = new Date(y, m + step, 1); calSel = null; render(); });
+  $("#calGroup").addEventListener("change", e => { calGroupBy = e.target.value; calSel = null; render(); });
+  document.querySelectorAll(".cal-cell[data-k]").forEach(c => c.addEventListener("click", () => { calSel = calSel === c.dataset.k ? null : c.dataset.k; render(); }));
+  if (calSel && map[calSel]) renderCalDetail(map[calSel]);
+};
+function renderCalDetail(v) {
+  const trades = [...v.trades].sort((a, b) => new Date(calDateOf(a)) - new Date(calDateOf(b)));
+  let cum = 0;
+  const line = trades.map(x => (cum += x.pnl));
+  $("#calDetail").innerHTML = `
+    <div class="dash-grid">
+      <div class="panel" style="background:var(--panel2)"><h2>Equity for this period · <span class="${cls(v.pnl)}">${smoney(v.pnl)}</span></h2><canvas id="calEq" height="90"></canvas></div>
+      <div class="panel" style="background:var(--panel2)"><h2>Trades</h2>
+        <div style="max-height:230px;overflow:auto"><table><thead><tr><th>Pair</th><th>Side</th><th class="num">PnL</th><th></th></tr></thead><tbody>
+        ${trades.map(x => `<tr><td><strong>${esc(x.symbol)}</strong> <span class="muted">${dt(calDateOf(x))}</span></td>
+          <td><span class="badge ${x.direction}">${x.direction}</span></td>
+          <td class="num ${cls(x.pnl)}">${smoney(x.pnl)}</td>
+          <td><button class="rowbtn" onclick="editTrade(${x.id})">open</button></td></tr>`).join("")}
+        </tbody></table></div></div>
+    </div>`;
+  chart("calEq", { type: "line", data: { labels: line.map((_, i) => i + 1), datasets: [{ data: line, segment: { borderColor: lineColorBySign }, borderWidth: 1.6, pointRadius: 2, tension: .15,
+    fill: { target: "origin", above: "rgba(61,220,132,.09)", below: "rgba(255,93,93,.09)" } }] },
+    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { display: false } } } });
 }
 
 /* ---- full scan ---- */
-function fullScan(t, s) {
+VIEWS.fullscan = function (t, s) {
   const cap = +(localStorage.getItem("initial_capital") || 0);
-  const latest = cap + s.net;
   const fees = s.closed.reduce((x, tt) => x + Number(tt.fees), 0);
   const row = (k, v, c = "") => `<div><span class="k">${k}</span><span class="${c}">${v}</span></div>`;
   $("#view").innerHTML = `
     <h1 class="viewtitle">Full Scan</h1>
     <div class="viewdesc">The whole account health check on one card — capital, costs, edge and drawdown for the trades in view.</div>
-    <div class="panel" style="max-width:460px">
+    <div class="panel" style="max-width:560px">
       <div class="stat-rows">
-        ${row("Initial Capital", `<input id="capIn" type="number" step="any" value="${cap || ""}" placeholder="set…" style="background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:3px 7px;width:130px;text-align:right">`)}
-        ${row("Latest Equity", money(latest), cls(s.net))}
+        ${row("Initial Capital", `<input id="capIn" type="number" step="any" value="${cap || ""}" placeholder="set…" style="background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:3px 7px;width:140px;text-align:right;color:var(--ink)">`)}
+        ${row("Latest Equity", money(cap + s.net), cls(s.net))}
         ${row("Brokerages & Charges", money(fees))}
         ${row("Net P&L (After Cost)", smoney(s.net), cls(s.net))}
         ${row("Percentage Return", cap ? ((s.net / cap) * 100).toFixed(2) + "%" : "—", cls(s.net))}
@@ -542,7 +769,7 @@ function fullScan(t, s) {
         ${row("Winning Trades", s.wins.length)}
         ${row("Losing Trades", s.losses.length)}
         ${row("Winning Percentage", (s.winrate * 100).toFixed(2) + "%")}
-        ${row("Losing Percentage", ((1 - s.winrate) * 100 || 0).toFixed(2) + "%")}
+        ${row("Losing Percentage", (s.closed.length ? s.losses.length / s.closed.length * 100 : 0).toFixed(2) + "%")}
         ${row("Avg Winning Trade", smoney(s.avgWin), "gain")}
         ${row("Avg Losing Trade", smoney(s.avgLoss), "loss")}
         ${row("Max Winning Streak", s.maxWS)}
@@ -557,63 +784,600 @@ function fullScan(t, s) {
       </div>
     </div>`;
   $("#capIn").addEventListener("change", e => { localStorage.setItem("initial_capital", e.target.value || 0); render(); });
-}
+};
 
-/* ---- chart lab ---- */
-function distribution(t, s) {
-  const pnls = s.closed.map(x => x.pnl);
-  let html = `<h1 class="viewtitle">P&amp;L Distribution</h1><div class="viewdesc">How your trade results are spread. A healthy edge cuts the left tail short.</div>
-    <div class="panel"><canvas id="dist" height="130"></canvas></div>`;
-  $("#view").innerHTML = html;
-  if (!pnls.length) return $("#view").insertAdjacentHTML("beforeend", '<div class="empty">No closed trades in view.</div>');
-  const min = Math.min(...pnls), max = Math.max(...pnls);
-  const bins = Math.min(24, Math.max(8, Math.ceil(Math.sqrt(pnls.length) * 2)));
-  const w = (max - min) / bins || 1;
-  const counts = Array(bins).fill(0), labels = [];
-  for (const p of pnls) counts[Math.min(bins - 1, Math.floor((p - min) / w))]++;
-  for (let i = 0; i < bins; i++) labels.push(smoney(min + w * (i + .5)));
-  chart("dist", { type: "bar", data: { labels, datasets: [{ data: counts, backgroundColor: labels.map((_, i) => (min + w * (i + .5)) >= 0 ? css("--gain") : css("--loss")), borderRadius: 3 }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, title: { display: true, text: "trades" } }, x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } } } } });
-}
+/* ---- consecutive winners/losers ---- */
+VIEWS.streaks = function (t, s) {
+  const streaks = [];
+  let cur = null;
+  for (const x of s.closed) {
+    const sign = x.pnl > 0 ? 1 : x.pnl < 0 ? -1 : 0;
+    if (!sign) { cur = null; continue; }
+    if (cur && cur.sign === sign) { cur.len++; cur.total += unitVal(x); }
+    else { cur = { sign, len: 1, total: unitVal(x) }; streaks.push(cur); }
+  }
+  const multi = streaks.filter(x => x.len >= 2);
+  const buckets = ["2","3","4","5","6","7","8","9","10","> 10"];
+  const bIdx = len => len > 10 ? 9 : len - 2;
+  const winAvg = buckets.map(() => ({ s: 0, n: 0 })), lossAvg = buckets.map(() => ({ s: 0, n: 0 }));
+  for (const x of multi) { const b = x.sign > 0 ? winAvg[bIdx(x.len)] : lossAvg[bIdx(x.len)]; b.s += x.total; b.n++; }
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Consecutive Winners/Losers</h1>
+    <div class="viewdesc">What a hot hand — or a cold one — actually does to the account: for each streak length, the average run of wins against the average run of losses.</div>
+    <div class="count-line">${multi.length} streaks of 2+ trades in view</div>
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+        ${unitSel("stUnit")}
+        <div class="legend" style="align-self:flex-end"><span><span class="gain">●</span> Consecutive winners</span><span><span class="loss">●</span> Consecutive losers</span></div>
+      </div>
+      <canvas id="stChart" height="120"></canvas>
+    </div>`;
+  bindUnit("stUnit");
+  chart("stChart", { type: "bar",
+    data: { labels: buckets, datasets: [
+      { data: winAvg.map(b => b.n ? b.s / b.n : 0), backgroundColor: css("--gain"), borderRadius: 3, stack: "s" },
+      { data: lossAvg.map(b => b.n ? b.s / b.n : 0), backgroundColor: css("--loss"), borderRadius: 3, stack: "s" },
+    ] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => (c.datasetIndex === 0 ? "Avg win run: " : "Avg loss run: ") + unitFmt(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: eqUnit === "$" ? kTicks : {}, title: { display: true, text: `Average Return (${eqUnit})` } },
+        x: { grid: { display: false }, title: { display: true, text: "Consecutive winners/losers" } } } } });
+};
 
-function byTime(t, s) {
+/* ---- equity vs expectancy ---- */
+VIEWS.eqexp = function (t, s) {
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Equity vs Expectancy</h1>
+    <div class="viewdesc">Your realised equity path against the straight line your average trade predicts. The band is what variance alone allows — a curve living above it is beating its own edge, one below it is bleeding more than luck explains.</div>
+    <div class="display-row">${unitSel("exUnit")}</div>
+    <div class="panel">
+      <div class="legend" style="justify-content:flex-end;margin-bottom:6px"><span style="color:#4b9eff">—</span> Actual equity <span style="color:#f59e0b">- -</span> Expectancy (${unitFmt(s.closed.length ? s.closed.map(unitVal).reduce((a,b)=>a+b,0)/s.closed.length : 0)}/trade) <span>▒ ±1σ variance</span></div>
+      <canvas id="exChart" height="120"></canvas>
+    </div>
+    ${unitCards(s)}`;
+  bindUnit("exUnit");
+  if (!s.closed.length) return;
+  const vals = s.closed.map(unitVal);
+  const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+  const sd = Math.sqrt(vals.reduce((a, b) => a + (b - mean) ** 2, 0) / vals.length);
+  let cum = 0;
+  const actual = vals.map(v => (cum += v));
+  const exp = vals.map((_, i) => mean * (i + 1));
+  const hi = vals.map((_, i) => mean * (i + 1) + sd * Math.sqrt(i + 1));
+  const lo = vals.map((_, i) => mean * (i + 1) - sd * Math.sqrt(i + 1));
+  chart("exChart", { type: "line",
+    data: { labels: vals.map((_, i) => i + 1), datasets: [
+      { data: hi, borderWidth: 0, pointRadius: 0, fill: "+1", backgroundColor: "rgba(160,170,160,.10)" },
+      { data: lo, borderWidth: 0, pointRadius: 0, fill: false },
+      { data: exp, borderColor: "#f59e0b", borderDash: [5, 4], borderWidth: 1.4, pointRadius: 0 },
+      { data: actual, borderColor: "#4b9eff", borderWidth: 1.7, pointRadius: 0, tension: .1 },
+    ] },
+    options: { ...noLegend, animation: false, interaction: { intersect: false, mode: "index" },
+      plugins: { ...noLegend.plugins, tooltip: { filter: c => c.datasetIndex >= 2, callbacks: { label: c => (c.datasetIndex === 3 ? "Actual: " : "Expectancy: ") + unitFmt(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: eqUnit === "$" ? kTicks : {} }, x: { grid: { display: false }, ticks: { maxTicksLimit: 12 }, title: { display: true, text: "Trade #" } } } } });
+};
+
+/* ---- exchange fee breakdown ---- */
+const VENUES = [["Bybit", 5.5, "#f59e0b"], ["Binance", 5, "#3ddc84"], ["Hyperliquid", 4.5, "#fb923c"], ["Coinbase", 6, "#e879f9"], ["OKX", 5, "#22d3ee"], ["Extended", 2.5, "#c084fc"]];
+VIEWS.fees = function (t, s) {
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Exchange Fee Breakdown</h1>
+    <div class="viewdesc">Your equity curve as executed, against what the same ${s.closed.length} trades would have returned under other venues' fee schedules.</div>
+    <div class="panel">
+      <h2><span>Equity by venue ($) <span class="muted" style="font-weight:400">${rangeLabel(s)}</span></span></h2>
+      <div class="legend" style="margin-bottom:8px"><span style="color:#4b9eff">—</span> <b>Current</b>${VENUES.map(v => ` <span style="color:${v[2]}">—</span> <b>${v[0]}</b> ${v[1]}bps`).join(" ")}</div>
+      <canvas id="feeChart" height="110"></canvas>
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <h2>Fee breakdown</h2>
+      <div class="viewdesc" style="margin-bottom:10px">What each venue would have charged across these trades, and the equity it would have left. Each simulation charges its rate on both sides (entry and exit notional) on top of your realized PnL.</div>
+      <div style="overflow-x:auto"><table><thead><tr><th>Venue</th><th class="num">Fee / side</th><th class="num">Est. fees paid</th><th class="num">Final PnL</th><th class="num">Δ vs current</th></tr></thead><tbody id="feeRows"></tbody></table></div>
+    </div>`;
+  if (!s.closed.length) return;
+  const notionals = s.closed.map(x => Number(x.entry_price) * Number(x.quantity) + (x.exit_price != null ? Number(x.exit_price) * Number(x.quantity) : 0));
+  let cum = 0;
+  const current = s.closed.map(x => (cum += x.pnl));
+  const series = VENUES.map(([name, bps, color]) => {
+    let c = 0, fees = 0;
+    const line = s.closed.map((x, i) => { const f = bps / 1e4 * notionals[i]; fees += f; c += x.pnl - f; return c; });
+    return { name, bps, color, line, fees, final: c };
+  });
+  chart("feeChart", { type: "line",
+    data: { labels: s.closed.map((_, i) => i + 1), datasets: [
+      { data: current, borderColor: "#4b9eff", borderWidth: 1.8, pointRadius: 0, tension: .1 },
+      ...series.map(v => ({ data: v.line, borderColor: v.color, borderWidth: 1.2, pointRadius: 0, tension: .1 })),
+    ] },
+    options: { ...noLegend, animation: false, interaction: { intersect: false, mode: "index" },
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => (c.datasetIndex === 0 ? "Current: " : series[c.datasetIndex - 1].name + ": ") + smoney(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } } } } });
+  $("#feeRows").innerHTML = [
+    `<tr><td><span style="color:#4b9eff">—</span> Current</td><td class="num">—</td><td class="num">—</td><td class="num">${money(s.net)}</td><td class="num">—</td></tr>`,
+    ...series.map(v => `<tr><td><span style="color:${v.color}">—</span> ${v.name}</td>
+      <td class="num">${v.bps}bps (${(v.bps / 100).toFixed(3)}%)</td>
+      <td class="num">${money(v.fees)}</td>
+      <td class="num">${money(v.final)}</td>
+      <td class="num loss">${smoney(v.final - s.net)}</td></tr>`),
+  ].join("");
+};
+
+/* ---- exit analysis ---- */
+const hasBracket = x => x.pnl != null && [x.take_profit, x.stop_loss, x.max_price, x.min_price].every(v => v != null);
+VIEWS.exitan = function (t, s) {
+  const withB = s.closed.filter(hasBracket);
+  let body;
+  if (!withB.length) {
+    body = `<div class="viewdesc">No trade in this range has all four of take profit, stop loss, max price and min price recorded. Add them on the Trades page to chart it.</div>`;
+  } else {
+    body = `<div class="panel">
+      <div class="legend" style="margin-bottom:8px"><span><span class="gain">●</span> Run in your favour (MFE %)</span><span><span class="loss">●</span> Run against you (MAE %)</span><span style="color:#f59e0b">- -</span> avg planned TP <span style="color:#e879f9">- -</span> avg planned SL</div>
+      <canvas id="exitChart" height="120"></canvas></div>
+      <div class="cards" id="exitCards"></div>`;
+  }
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Exit Analysis</h1>
+    <div class="viewdesc">How far each trade ran in your favour and against you, against the bracket you planned. ${withB.length} of ${s.closed.length} trades have the take profit, stop loss, max price and min price needed to chart.</div>
+    ${body}`;
+  if (!withB.length) return;
+  const dirSign = x => x.direction === "short" ? -1 : 1;
+  const mfe = withB.map(x => dirSign(x) * (Number(x.max_price) - Number(x.entry_price)) / Number(x.entry_price) * 100 * (x.direction === "short" ? -1 : 1));
+  const mfeV = withB.map(x => { const e = Number(x.entry_price);
+    return (x.direction === "long" ? (Number(x.max_price) - e) : (e - Number(x.min_price))) / e * 100; });
+  const maeV = withB.map(x => { const e = Number(x.entry_price);
+    return -((x.direction === "long" ? (e - Number(x.min_price)) : (Number(x.max_price) - e)) / e * 100); });
+  const tpAvg = withB.reduce((a, x) => a + Math.abs(Number(x.take_profit) - Number(x.entry_price)) / Number(x.entry_price) * 100, 0) / withB.length;
+  const slAvg = -withB.reduce((a, x) => a + Math.abs(Number(x.entry_price) - Number(x.stop_loss)) / Number(x.entry_price) * 100, 0) / withB.length;
+  const hitTp = withB.filter(x => { const e = Number(x.entry_price);
+    return x.direction === "long" ? Number(x.max_price) >= Number(x.take_profit) : Number(x.min_price) <= Number(x.take_profit); }).length;
+  const hitSl = withB.filter(x => x.direction === "long" ? Number(x.min_price) <= Number(x.stop_loss) : Number(x.max_price) >= Number(x.stop_loss)).length;
+  chart("exitChart", { type: "bar",
+    data: { labels: withB.map((_, i) => i + 1), datasets: [
+      { data: mfeV, backgroundColor: "rgba(61,220,132,.6)", borderRadius: 2 },
+      { data: maeV, backgroundColor: "rgba(255,93,93,.6)", borderRadius: 2 },
+      { type: "line", data: withB.map(() => tpAvg), borderColor: "#f59e0b", borderDash: [5, 4], borderWidth: 1.2, pointRadius: 0 },
+      { type: "line", data: withB.map(() => slAvg), borderColor: "#e879f9", borderDash: [5, 4], borderWidth: 1.2, pointRadius: 0 },
+    ] },
+    options: { ...noLegend, animation: false, interaction: { intersect: false, mode: "index" },
+      plugins: { ...noLegend.plugins, tooltip: { filter: c => c.datasetIndex < 2, callbacks: {
+        title: i => { const x = withB[i[0].dataIndex]; return `${x.symbol} · ${dt(x.exit_date)}`; },
+        label: c => (c.datasetIndex === 0 ? "MFE: +" : "MAE: ") + c.parsed.y.toFixed(2) + "%" } } },
+      scales: { y: { grid: { color: "#141615" }, title: { display: true, text: "% from entry" } }, x: { grid: { display: false }, ticks: { maxTicksLimit: 14 }, title: { display: true, text: "Trades" } } } } });
+  $("#exitCards").innerHTML =
+    scard("Hit planned take profit", `${hitTp} / ${withB.length}`, "gain", "g", (hitTp / withB.length * 100).toFixed(1) + "% of bracketed trades") +
+    scard("Hit planned stop", `${hitSl} / ${withB.length}`, "loss", "r", (hitSl / withB.length * 100).toFixed(1) + "% of bracketed trades") +
+    scard("Avg favourable run", "+" + (mfeV.reduce((a, b) => a + b, 0) / mfeV.length).toFixed(2) + "%", "gain", "g", "vs avg TP at +" + tpAvg.toFixed(2) + "%") +
+    scard("Avg adverse run", (maeV.reduce((a, b) => a + b, 0) / maeV.length).toFixed(2) + "%", "loss", "r", "vs avg SL at " + slAvg.toFixed(2) + "%");
+};
+
+/* ---- kelly ---- */
+VIEWS.kelly = function (t, s) {
+  const p = s.winrateDecided, q = 1 - p;
+  const R = s.avgLoss ? Math.abs(s.avgWin / s.avgLoss) : 0;
+  const kelly = R > 0 ? p - q / R : 0;
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Kelly Criterion</h1>
+    <div class="viewdesc">How much of the bankroll your measured edge supports risking per trade — bet more and variance eats the edge, bet less and you leave growth on the table. Estimates lean on small samples, so most practitioners size at half Kelly or less.</div>
+    <div class="cards" style="margin-top:0">
+      ${scard("Kelly stake", (kelly * 100).toFixed(1) + "%", kelly > 0 ? "gain" : "loss", kelly > 0 ? "g" : "r")}
+      ${scard("Half Kelly", (kelly * 50).toFixed(1) + "%", "", "")}
+      ${scard("Winrate (p)", (p * 100).toFixed(1) + "%", "", "")}
+      ${scard("Payoff ratio (R)", R.toFixed(2), "", "")}
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <h2>Growth vs stake size</h2>
+      <div class="viewdesc" style="margin-bottom:8px">Expected growth per trade at every fraction of bankroll risked, from the ${s.wins.length + s.losses.length} decided trades in view. Dashed lines mark the half-Kelly and full-Kelly stakes and the breakeven stake where growth turns negative.</div>
+      <canvas id="kellyChart" height="110"></canvas>
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <h2>Rolling Kelly stake</h2>
+      <div class="viewdesc" style="margin-bottom:8px">Edge stability: the all-time Kelly number can hide an edge that faded months ago. Kelly recomputed over a rolling 30-trade window.</div>
+      <canvas id="rollKelly" height="80"></canvas>
+    </div>`;
+  if (!R || kelly <= -1) return;
+  const fMax = Math.min(0.4, Math.max(0.05, kelly * 2.2 || 0.2));
+  const N = 80;
+  const pts = [...Array(N + 1)].map((_, i) => { const f = fMax * i / N;
+    return { x: f * 100, y: f < 1 ? (p * Math.log(1 + f * R) + q * Math.log(1 - f)) * 100 : NaN }; });
+  const vline = (x, color) => ({ type: "line", data: [{ x: x * 100, y: Math.min(...pts.map(p => p.y)) }, { x: x * 100, y: Math.max(...pts.map(p => p.y)) }], borderColor: color, borderDash: [4, 4], borderWidth: 1, pointRadius: 0 });
+  chart("kellyChart", { type: "line", data: { datasets: [
+      { data: pts, segment: { borderColor: lineColorBySign }, borderWidth: 1.8, pointRadius: 0,
+        fill: { target: "origin", above: "rgba(61,220,132,.10)", below: "rgba(255,93,93,.10)" } },
+      vline(kelly / 2, "#7b807c"), vline(kelly, "#7b807c"),
+    ] },
+    options: { ...noLegend, animation: false, parsing: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => c.datasetIndex === 0 ? `stake ${c.parsed.x.toFixed(1)}% → growth ${c.parsed.y.toFixed(3)}%/trade` : "" } } },
+      scales: { x: { type: "linear", grid: { display: false }, ticks: { callback: v => v + "%" } },
+        y: { grid: { color: "#141615" }, ticks: { callback: v => v.toFixed(1) + "%" } } } } });
+  const win = 30, roll = [];
+  for (let i = win - 1; i < s.closed.length; i++) {
+    const w = s.closed.slice(i - win + 1, i + 1);
+    const ws = w.filter(x => x.pnl > 0), ls = w.filter(x => x.pnl < 0);
+    const pp = (ws.length + ls.length) ? ws.length / (ws.length + ls.length) : 0;
+    const aw = ws.length ? ws.reduce((a, x) => a + x.pnl, 0) / ws.length : 0;
+    const al = ls.length ? Math.abs(ls.reduce((a, x) => a + x.pnl, 0) / ls.length) : 0;
+    roll.push(al ? (pp - (1 - pp) / (aw / al)) * 100 : 0);
+  }
+  chart("rollKelly", { type: "line", data: { labels: roll.map((_, i) => i + win), datasets: [{ data: roll, segment: { borderColor: lineColorBySign }, borderWidth: 1.5, pointRadius: 0, tension: .15,
+    fill: { target: "origin", above: "rgba(61,220,132,.09)", below: "rgba(255,93,93,.09)" } }] },
+    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, ticks: { callback: v => v.toFixed(0) + "%" } }, x: { display: false } } } });
+};
+
+/* ---- p&l concentration ---- */
+VIEWS.conc = function (t, s) {
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">P&amp;L Concentration</h1>
+    <div class="viewdesc">How much of the total your best few trades carry — "elite traders make 80% of their annual P&amp;L on 5% of their trades", measured on your own book.</div>
+    <div class="panel">
+      <h2>Share of P&amp;L vs share of trades</h2>
+      <div class="viewdesc" style="margin-bottom:8px">Cumulative share of net P&amp;L captured by the top slice of trades, best first. The dotted diagonal is a perfectly even split; the dashed line marks 100% — everything above it is profit the remaining trades gave back.</div>
+      <canvas id="concChart" height="110"></canvas>
+    </div>
+    <div class="cards" id="concCards"></div>`;
+  if (!s.closed.length || s.net === 0) return;
+  const sorted = [...s.closed].sort((a, b) => b.pnl - a.pnl);
+  let cum = 0;
+  const pts = sorted.map((x, i) => { cum += x.pnl; return { x: (i + 1) / sorted.length * 100, y: cum / s.net * 100 }; });
+  pts.unshift({ x: 0, y: 0 });
+  const peak = Math.max(...pts.map(p => p.y));
+  const n5 = Math.max(1, Math.round(sorted.length * 0.05));
+  const top5Share = sorted.slice(0, n5).reduce((a, x) => a + x.pnl, 0) / s.net * 100;
+  let halfN = 0, c2 = 0;
+  for (const x of sorted) { c2 += x.pnl; halfN++; if (c2 >= s.net / 2) break; }
+  const withoutTop5 = s.net - sorted.slice(0, n5).reduce((a, x) => a + x.pnl, 0);
+  chart("concChart", { type: "line", data: { datasets: [
+      { data: pts, segment: { borderColor: ctx => (ctx.p1.parsed.y >= ctx.p0.parsed.y ? css("--gain") : css("--loss")) },
+        borderWidth: 1.8, pointRadius: 0, fill: { target: "origin", above: "rgba(61,220,132,.08)" } },
+      { data: [{ x: 0, y: 0 }, { x: 100, y: 100 }], borderColor: "#4a4e4b", borderDash: [2, 4], borderWidth: 1, pointRadius: 0 },
+      { data: [{ x: 0, y: 100 }, { x: 100, y: 100 }], borderColor: "#4a4e4b", borderDash: [6, 5], borderWidth: 1, pointRadius: 0 },
+    ] },
+    options: { ...noLegend, animation: false, parsing: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => c.datasetIndex === 0 ? `top ${c.parsed.x.toFixed(1)}% of trades → ${c.parsed.y.toFixed(1)}% of P&L` : "" } } },
+      scales: { x: { type: "linear", min: 0, max: 100, grid: { display: false }, ticks: { callback: v => v + "%" } },
+        y: { grid: { color: "#141615" }, ticks: { callback: v => v + "%" } } } } });
+  $("#concCards").innerHTML =
+    scard("Top 5% of trades made", top5Share.toFixed(0) + "% of P&L", "", "g", n5 + " trade" + (n5 > 1 ? "s" : "")) +
+    scard("Half the P&L came from", halfN + " trade" + (halfN > 1 ? "s" : ""), "", "g") +
+    scard("Winners peaked at", peak.toFixed(0) + "%", "gain", "g", "of final net P&L") +
+    scard("Without the top 5%", smoney(withoutTop5), cls(withoutTop5), withoutTop5 >= 0 ? "g" : "r");
+};
+
+/* ---- p&l distribution (ranked) ---- */
+VIEWS.distribution = function (t, s) {
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">P&amp;L Distribution</h1>
+    <div class="viewdesc">Every trade ranked from worst to best — how deep the losing tail digs, and how much of the total the best few trades carry.</div>
+    <div class="panel">
+      <div class="display-row" style="margin-bottom:8px">${unitSel("pdUnit")}</div>
+      <canvas id="pdChart" height="120"></canvas>
+    </div>
+    ${unitCards(s)}`;
+  bindUnit("pdUnit");
+  if (!s.closed.length) return;
+  const sorted = [...s.closed].sort((a, b) => unitVal(a) - unitVal(b));
+  const vals = sorted.map(unitVal);
+  chart("pdChart", { type: "bar",
+    data: { labels: vals.map((_, i) => i + 1), datasets: [{ data: vals, backgroundColor: vals.map(v => v >= 0 ? css("--gain") : css("--loss")) }] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { title: i => { const x = sorted[i[0].dataIndex]; return `${x.symbol} · ${dt(x.exit_date)}`; }, label: c => unitFmt(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: eqUnit === "$" ? kTicks : {} }, x: { display: false } } } });
+};
+
+/* ---- performance by time ---- */
+VIEWS.bytime = function (t, s) {
+  const periods = { weekday: { labels: DOW, key: d => (d.getDay() + 6) % 7 }, hour: { labels: [...Array(24).keys()].map(h => String(h).padStart(2, "0")), key: d => d.getHours() }, month: { labels: MONTHS, key: d => d.getMonth() } };
+  const P = periods[btPeriod];
+  const dateOf = x => new Date(btDate === "entry" ? x.entry_date : x.exit_date);
+  const groups = P.labels.map(l => ({ label: l, n: 0, wins: 0, losses: 0, total: 0 }));
+  for (const x of s.closed) { const g = groups[P.key(dateOf(x))]; g.n++; g.total += x.pnl; if (x.pnl > 0) g.wins++; else if (x.pnl < 0) g.losses++; }
+  const withTrades = groups.filter(g => g.n);
+  const best = withTrades.length ? withTrades.reduce((a, b) => b.total > a.total ? b : a) : null;
+  const worst = withTrades.length ? withTrades.reduce((a, b) => b.total < a.total ? b : a) : null;
   $("#view").innerHTML = `
     <h1 class="viewtitle">Performance by Time</h1>
-    <div class="viewdesc">P&amp;L grouped by weekday, entry hour, and month — where your edge actually shows up.</div>
-    <div class="grid">
-      <div class="dash-grid2">
-        <div class="panel"><h2>By weekday (exit)</h2><canvas id="pDay" height="150"></canvas></div>
-        <div class="panel"><h2>By entry hour</h2><canvas id="pHour" height="150"></canvas></div>
+    <div class="viewdesc">Where in the calendar your edge sits — ${s.closed.length} trades bucketed by ${btPeriod[0].toUpperCase() + btPeriod.slice(1)}, on ${btDate === "entry" ? "Entry" : "Close"} Date.</div>
+    <div class="panel">
+      <div class="display-row" style="margin-bottom:8px">
+        <div><div class="lbl">Display</div><select class="ctl" style="width:auto" disabled><option>Total Return ($)</option></select></div>
+        <div><div class="lbl">Date settings</div><select id="btDateSel" class="ctl" style="width:auto"><option value="entry" ${btDate === "entry" ? "selected" : ""}>Entry Date</option><option value="close" ${btDate === "close" ? "selected" : ""}>Close Date</option></select></div>
+        <div><div class="lbl">Period</div><select id="btPeriodSel" class="ctl" style="width:auto"><option value="weekday" ${btPeriod === "weekday" ? "selected" : ""}>Weekday</option><option value="hour" ${btPeriod === "hour" ? "selected" : ""}>Hour</option><option value="month" ${btPeriod === "month" ? "selected" : ""}>Month</option></select></div>
       </div>
-      <div class="panel"><h2>By month</h2><canvas id="pMonth" height="90"></canvas></div>
+      <canvas id="btChart" height="110"></canvas>
+    </div>
+    <div class="dash-grid" style="margin-top:14px">
+      <div class="panel"><div style="max-height:320px;overflow:auto"><table><thead><tr><th>${btPeriod}</th><th class="num">Trades</th><th class="num">Winrate (%)</th><th class="num">Avg. Return ($)</th><th class="num">Total Gain ($)</th></tr></thead><tbody>
+        ${withTrades.map(g => `<tr><td>${g.label}</td><td class="num">${g.n}</td><td class="num">${(g.wins / Math.max(1, g.wins + g.losses) * 100).toFixed(2)}</td>
+          <td class="num ${cls(g.total / g.n)}">${(g.total / g.n).toFixed(2)}</td><td class="num ${cls(g.total)}">${g.total.toFixed(2)}</td></tr>`).join("")}
+      </tbody></table></div></div>
+      <div class="grid">
+        ${best ? scard("Best " + btPeriod, smoney(best.total), "gain", "g", best.label) : ""}
+        ${worst ? scard("Worst " + btPeriod, smoney(worst.total), "loss", "r", worst.label) : ""}
+        ${scard("Trades per " + btPeriod, withTrades.length ? (s.closed.length / withTrades.length).toFixed(2) : "—", "", "")}
+        ${scard("Average " + btPeriod, withTrades.length ? smoney(s.net / withTrades.length) : "—", cls(s.net), s.net >= 0 ? "g" : "r")}
+      </div>
     </div>`;
-  drawGrouped("pDay", s.closed, x => (new Date(x.exit_date).getDay() + 6) % 7, DOW);
-  drawGrouped("pHour", s.closed, x => new Date(x.entry_date).getHours(), [...Array(24).keys()].map(h => String(h).padStart(2, "0")));
-  drawGrouped("pMonth", s.closed, x => new Date(x.exit_date).getMonth(), MONTHS);
-}
+  $("#btDateSel").addEventListener("change", e => { btDate = e.target.value; render(); });
+  $("#btPeriodSel").addEventListener("change", e => { btPeriod = e.target.value; render(); });
+  chart("btChart", { type: "bar", data: { labels: P.labels, datasets: [{ data: groups.map(g => g.total), backgroundColor: groups.map(g => g.total >= 0 ? css("--gain") : css("--loss")), borderRadius: 3 }] },
+    options: { ...noLegend, animation: false, plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => smoney(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: kTicks, title: { display: true, text: "Total Return ($)" } }, x: { grid: { display: false } } } } });
+};
 
-function streaksView(t, s) {
-  const seq = s.closed.map(x => x.pnl > 0 ? 1 : -1);
-  const runs = []; let cur = 0;
-  for (const v of seq) { if (cur === 0 || Math.sign(cur) === v) cur += v; else { runs.push(cur); cur = v; } }
-  if (cur) runs.push(cur);
+/* ---- performance ratio ---- */
+VIEWS.perfratio = function (t, s) {
+  const decided = s.closed.filter(x => x.pnl !== 0);
+  const setups = [...new Set(decided.map(x => x.setup || "No setup"))].sort();
+  const seriesFor = list => { let w = 0, n = 0; return list.map(x => { n++; if (x.pnl > 0) w++; return { i: n, y: w / n * 100 }; }); };
+  const overall = seriesFor(decided);
+  const bySetup = setups.map((name, i) => ({ name, color: PALETTE[(i + 1) % PALETTE.length], data: seriesFor(decided.filter(x => (x.setup || "No setup") === name)), list: decided.filter(x => (x.setup || "No setup") === name) }));
+  const rating = wr => wr >= 65 ? "Excellent" : wr >= 55 ? "Good" : wr >= 40 ? "Average" : "Poor";
+  const summary = wr => wr >= 65 ? "A real statistical edge — protect it with consistent sizing." :
+    wr >= 55 ? "Better than a coin flip — the edge compounds if losses stay contained." :
+    wr >= 40 ? "Roughly a coin flip — the edge has to come from trade management." :
+    "Losing more often than winning — only viable with big winners.";
   $("#view").innerHTML = `
-    <h1 class="viewtitle">Streaks &amp; Expectancy</h1>
-    <div class="viewdesc">Win/loss runs in order, plus rolling expectancy over the last 20 trades.</div>
-    <div class="grid">
-      <div class="panel"><h2>Consecutive winners / losers</h2><canvas id="runs" height="110"></canvas></div>
-      <div class="panel"><h2>Rolling expectancy (20 trades)</h2><canvas id="rollExp" height="110"></canvas></div>
+    <h1 class="viewtitle">Performance Ratio</h1>
+    <div class="viewdesc">Winrate (%) recomputed after every trade, split by setups. Winning trades as a share of decided trades; break-evens are excluded from both sides.</div>
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+        <div class="display-row" style="margin:0">
+          <div><div class="lbl">Ratio</div><select class="ctl" style="width:auto" disabled><option>Winrate (%)</option></select></div>
+          <div><div class="lbl">Split by</div><select class="ctl" style="width:auto" disabled><option>Setups</option></select></div>
+        </div>
+        <div class="legend" style="align-self:flex-end"><span style="color:${PALETTE[0]}">●</span> Overall ${bySetup.map(x => `<span style="color:${x.color}">●</span> ${esc(x.name)}`).join(" ")}</div>
+      </div>
+      <canvas id="prChart" height="120"></canvas>
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <table><thead><tr><th>Split</th><th class="num">Winrate (%)</th><th>Rating</th><th>Summary</th></tr></thead><tbody>
+        <tr><td><span style="color:${PALETTE[0]}">●</span> Overall <span class="muted">${decided.length}</span></td>
+          <td class="num">${overall.length ? overall[overall.length - 1].y.toFixed(2) : "—"}</td>
+          <td>${overall.length ? rating(overall[overall.length - 1].y) : ""}</td><td class="muted">${overall.length ? summary(overall[overall.length - 1].y) : ""}</td></tr>
+        ${bySetup.map(x => { const wr = x.data.length ? x.data[x.data.length - 1].y : 0;
+          return `<tr><td><span style="color:${x.color}">●</span> ${esc(x.name)} <span class="muted">${x.list.length}</span></td>
+          <td class="num">${wr.toFixed(2)}</td><td>${rating(wr)}</td><td class="muted">${summary(wr)}</td></tr>`; }).join("")}
+      </tbody></table>
     </div>`;
-  chart("runs", { type: "bar", data: { labels: runs.map((_, i) => i + 1), datasets: [{ data: runs, backgroundColor: runs.map(v => v > 0 ? css("--gain") : css("--loss")), borderRadius: 3 }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" }, title: { display: true, text: "run length" } }, x: { display: false } } } });
-  const roll = s.closed.map((_, i) => { const win = s.closed.slice(Math.max(0, i - 19), i + 1); return win.reduce((a, b) => a + b.pnl, 0) / win.length; });
-  chart("rollExp", { type: "line", data: { labels: roll.map((_, i) => i + 1), datasets: [{ data: roll, segment: { borderColor: lineColorBySign }, borderWidth: 1.6, pointRadius: 0, tension: .15,
+  chart("prChart", { type: "line", data: { datasets: [
+      { data: overall.map(p => ({ x: p.i, y: p.y })), borderColor: PALETTE[0], borderWidth: 1.8, pointRadius: 0, stepped: false, tension: .1 },
+      ...bySetup.map(x => ({ data: x.data.map(p => ({ x: p.i, y: p.y })), borderColor: x.color, borderWidth: 1.2, pointRadius: 0, stepped: true })),
+    ] },
+    options: { ...noLegend, animation: false, parsing: false, interaction: { intersect: false, mode: "nearest" },
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => (c.datasetIndex === 0 ? "Overall" : bySetup[c.datasetIndex - 1].name) + ": " + c.parsed.y.toFixed(1) + "%" } } },
+      scales: { x: { type: "linear", grid: { display: false }, title: { display: true, text: "Trades" } },
+        y: { min: 0, max: 100, grid: { color: "#141615" }, title: { display: true, text: "Winrate (%)" } } } } });
+};
+
+/* ---- risk distribution (histogram) ---- */
+VIEWS.riskdist = function (t, s) {
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Risk Distribution</h1>
+    <div class="viewdesc">How your outcomes are spread — where the mass of trades sits, and how far the losing tail runs.</div>
+    <div class="panel">
+      <div class="display-row" style="margin-bottom:8px">${unitSel("rdUnit")}</div>
+      <canvas id="rdChart" height="120"></canvas>
+    </div>
+    ${unitCards(s)}`;
+  bindUnit("rdUnit");
+  const vals = s.closed.map(unitVal);
+  if (!vals.length) return;
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const bins = Math.min(40, Math.max(10, Math.ceil(Math.sqrt(vals.length) * 3)));
+  const w = (max - min) / bins || 1;
+  const counts = Array(bins).fill(0), centers = [];
+  for (const v of vals) counts[Math.min(bins - 1, Math.floor((v - min) / w))]++;
+  for (let i = 0; i < bins; i++) centers.push(min + w * (i + .5));
+  const lbl = v => eqUnit === "$" ? kfmt(v) : v.toFixed(1) + (eqUnit === "%" ? "%" : "R");
+  chart("rdChart", { type: "bar",
+    data: { labels: centers.map((c, i) => `${lbl(min + w * i)} to ${lbl(min + w * (i + 1))}`), datasets: [{ data: counts, backgroundColor: centers.map(c => c >= 0 ? css("--gain") : css("--loss")), borderRadius: 2 }] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => c.parsed.y + " trades" } } },
+      scales: { y: { grid: { color: "#141615" }, title: { display: true, text: "Number of Trades" } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 16, maxRotation: 60, minRotation: 40 }, title: { display: true, text: `Return (${eqUnit})` } } } } });
+};
+
+/* ---- rolling expectancy ---- */
+VIEWS.rolling = function (t, s) {
+  const win = rollWin;
+  const roll = [];
+  for (let i = win - 1; i < s.closed.length; i++) {
+    const w = s.closed.slice(i - win + 1, i + 1);
+    roll.push({ i: i + 1, y: w.reduce((a, b) => a + b.pnl, 0) / w.length });
+  }
+  const last = s.closed.slice(-win);
+  const lw = last.filter(x => x.pnl > 0), ll = last.filter(x => x.pnl < 0);
+  const lwSum = lw.reduce((a, x) => a + x.pnl, 0), llSum = Math.abs(ll.reduce((a, x) => a + x.pnl, 0));
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Rolling Expectancy</h1>
+    <div class="viewdesc">Your edge over the last ${win} trades at every point in time — a flat all-time number can hide an edge that stopped working months ago.</div>
+    <div class="panel">
+      <div class="display-row" style="margin-bottom:8px">
+        <div><div class="lbl">Display</div><select class="ctl" style="width:auto" disabled><option>Expectancy ($/trade)</option></select></div>
+        <div><div class="lbl">Window</div><select id="rwSel" class="ctl" style="width:auto">${[10,20,50].map(w => `<option ${w === win ? "selected" : ""}>${w}</option>`).join("")}</select></div>
+      </div>
+      ${last.length ? `<div class="muted" style="font-size:11px;margin-bottom:8px">Latest ${Math.min(win, s.closed.length)}-trade window: ${smoney(last.reduce((a, x) => a + x.pnl, 0) / last.length)} / trade · ${(lw.length / Math.max(1, lw.length + ll.length) * 100).toFixed(1)}% winrate · ${llSum ? (lwSum / llSum).toFixed(2) : "∞"} profit factor</div>` : ""}
+      <canvas id="rollExp" height="110"></canvas>
+    </div>`;
+  $("#rwSel").addEventListener("change", e => { rollWin = +e.target.value; render(); });
+  chart("rollExp", { type: "line", data: { datasets: [{ data: roll.map(p => ({ x: p.i, y: p.y })), segment: { borderColor: lineColorBySign }, borderWidth: 1.6, pointRadius: 0, tension: .15,
     fill: { target: "origin", above: "rgba(61,220,132,.09)", below: "rgba(255,93,93,.09)" } }] },
-    options: { ...noLegend, animation: false, scales: { y: { grid: { color: "#141615" } }, x: { display: false } } } });
-}
+    options: { ...noLegend, animation: false, parsing: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => smoney(c.parsed.y) + " / trade" } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { type: "linear", grid: { display: false }, title: { display: true, text: "Trades" } } } } });
+};
+
+/* ---- stop distance vs winrate ---- */
+VIEWS.stopdist = function (t, s) {
+  const withStop = s.closed.filter(x => x.stop_loss != null && x.pnl !== 0);
+  const edges = stopEdges.split(",").map(x => parseFloat(x)).filter(x => !isNaN(x) && x > 0).sort((a, b) => a - b);
+  const labels = ["< " + edges[0] + "%", ...edges.slice(0, -1).map((e, i) => e + "-" + edges[i + 1] + "%"), edges[edges.length - 1] + "%+"];
+  const buckets = labels.map(() => ({ n: 0, w: 0 }));
+  for (const x of withStop) {
+    const d = Math.abs(Number(x.entry_price) - Number(x.stop_loss)) / Number(x.entry_price) * 100;
+    let bi = edges.findIndex(e => d < e); if (bi === -1) bi = edges.length;
+    buckets[bi].n++; if (x.pnl > 0) buckets[bi].w++;
+  }
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Stop Distance vs Winrate</h1>
+    <div class="viewdesc">How often trades win depending on how far the stop sat from entry — the price of a tight stop, measured on your own trades. ${s.closed.length - withStop.length} trades omitted: no stop loss journalled.</div>
+    <div class="count-line">${withStop.length} of ${s.closed.length} trades in view carry a journalled stop</div>
+    <div class="display-row">
+      <div><div class="lbl">Bucket edges (% from entry)</div><input id="edgeIn" value="${esc(stopEdges)}" style="width:220px"></div>
+      <div style="align-self:flex-end" class="muted">Buckets: ${labels[0]} … ${labels[labels.length - 1]}</div>
+    </div>
+    <div class="panel">
+      <div class="display-row" style="margin-bottom:8px"><div><div class="lbl">Display</div><select class="ctl" style="width:auto" disabled><option>Winrate (%)</option></select></div></div>
+      <canvas id="sdChart" height="120"></canvas>
+    </div>`;
+  $("#edgeIn").addEventListener("change", e => { stopEdges = e.target.value; render(); });
+  if (!withStop.length) return;
+  chart("sdChart", { type: "bar",
+    data: { labels: labels.map((l, i) => [l, buckets[i].n + " trades"]), datasets: [{ data: buckets.map(b => b.n ? b.w / b.n * 100 : 0), backgroundColor: css("--gain"), borderRadius: 3 }] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: { label: c => c.parsed.y.toFixed(1) + "% winrate · " + buckets[c.dataIndex].n + " trades" } } },
+      scales: { y: { min: 0, max: 100, grid: { color: "#141615" }, ticks: { callback: v => v + "%" } },
+        x: { grid: { display: false }, title: { display: true, text: "Stop distance from entry (% of entry price)" } } } } });
+};
+
+/* ---- trade efficiency ---- */
+VIEWS.efficiency = function (t, s) {
+  const withMM = s.closed.filter(x => x.max_price != null && x.min_price != null && Number(x.max_price) > Number(x.min_price));
+  let body;
+  if (!withMM.length) {
+    body = `<div class="viewdesc">No trade in this range has a max and min price recorded. Open one on the Trades page and add them to chart it.</div>`;
+  } else {
+    body = `<div class="panel">
+      <div class="legend" style="margin-bottom:8px"><span><span class="gain">●</span> Total efficiency (captured share of the full move)</span></div>
+      <canvas id="effChart" height="120"></canvas></div>
+      <div class="cards" id="effCards"></div>`;
+  }
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Trade Efficiency</h1>
+    <div class="viewdesc">How much of each trade's available move you actually captured, split into what the entry contributed and what the exit did. ${withMM.length} of ${s.closed.length} trades have the max and min price needed to chart — no take profit or stop loss required.</div>
+    ${body}`;
+  if (!withMM.length) return;
+  const eff = withMM.map(x => {
+    const hi = Number(x.max_price), lo = Number(x.min_price), e = Number(x.entry_price), xx = Number(x.exit_price), rng = hi - lo;
+    const long = x.direction === "long";
+    return { t: x,
+      entryEff: (long ? (hi - e) : (e - lo)) / rng * 100,
+      exitEff: (long ? (xx - lo) : (hi - xx)) / rng * 100,
+      total: (long ? (xx - e) : (e - xx)) / rng * 100 };
+  });
+  const avg = k => eff.reduce((a, x) => a + x[k], 0) / eff.length;
+  chart("effChart", { type: "bar",
+    data: { labels: eff.map((_, i) => i + 1), datasets: [{ data: eff.map(x => x.total), backgroundColor: eff.map(x => x.total >= 0 ? css("--gain") : css("--loss")), borderRadius: 2 }] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { callbacks: {
+        title: i => { const x = eff[i[0].dataIndex].t; return `${x.symbol} · ${dt(x.exit_date)}`; },
+        label: c => { const x = eff[c.dataIndex]; return [`captured ${x.total.toFixed(1)}% of the move`, `entry eff ${x.entryEff.toFixed(1)}% · exit eff ${x.exitEff.toFixed(1)}%`]; } } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: { callback: v => v + "%" }, title: { display: true, text: "% of available move" } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 14 }, title: { display: true, text: "Trades" } } } } });
+  $("#effCards").innerHTML =
+    scard("Avg total efficiency", avg("total").toFixed(1) + "%", cls(avg("total")), avg("total") >= 0 ? "g" : "r", "share of high-to-low range captured") +
+    scard("Avg entry efficiency", avg("entryEff").toFixed(1) + "%", "", "", "how much room the entry left to run") +
+    scard("Avg exit efficiency", avg("exitEff").toFixed(1) + "%", "", "", "how close the exit got to the extreme");
+};
+
+/* ---- EV calculator ---- */
+VIEWS.ev = function (t, s) {
+  if (!evIn) evIn = { p: +(s.winrateDecided * 100).toFixed(0) || 50, W: Math.round(s.avgWin) || 150, L: Math.round(Math.abs(s.avgLoss)) || 100, cost: 0, N: 100 };
+  const { p, W, L, cost, N } = evIn;
+  const pp = p / 100, q = 1 - pp;
+  const ev = pp * W - q * L - cost;
+  const pf = q * L ? (pp * W) / (q * L) : null;
+  const variance = pp * (W - cost - ev) ** 2 + q * (-L - cost - ev) ** 2;
+  const sd = Math.sqrt(variance);
+  const beWr = (L + cost) / (W + L) * 100;
+  const pNeg = sd ? normCdf(-ev * Math.sqrt(N) / sd) * 100 : (ev < 0 ? 100 : 0);
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">EV Calculator</h1>
+    <div class="viewdesc">What a win rate and a payoff are worth per trade — and what variance does to that edge over a run of trades. Enter sizes in dollars, or in R-multiples if you think in risk units; the maths is the same.</div>
+    <div class="panel">
+      <div class="display-row" style="margin:0">
+        ${[["Win rate %","p"],["Average winner $","W"],["Average loser $","L"],["Cost per trade $","cost"],["Trades #","N"]].map(([l, k]) =>
+          `<div><div class="lbl">${l}</div><input type="number" step="any" class="ctl" style="width:150px;text-align:right" data-ev="${k}" value="${evIn[k]}"></div>`).join("")}
+        <div style="align-self:flex-end"><button class="btn ghost" id="evFromStats">Use my stats</button></div>
+      </div>
+    </div>
+    <div class="cards">
+      ${scard("Expected value per trade", money(ev), cls(ev), ev >= 0 ? "g" : "r", pf != null ? "Profit factor " + pf.toFixed(2) : "")}
+      ${scard("Expected after " + N + " trades", money(ev * N), cls(ev), ev >= 0 ? "g" : "r", "±1σ " + money(sd * Math.sqrt(N)))}
+      ${scard("Breakeven win rate", beWr.toFixed(1) + "%", "", "", p > beWr ? "You are above it — the edge is real" : "You are below it — negative expectancy")}
+      ${scard("Still down after " + N, pNeg.toFixed(1) + "%", pNeg > 20 ? "loss" : "", pNeg > 20 ? "r" : "g", "Odds variance leaves you negative")}
+    </div>
+    <div class="panel" style="margin-top:14px">
+      <h2><span>Expected equity over ${N} trades</span><span class="legend"><span style="color:#4b9eff">—</span> Expected equity <span>▒ ±1σ variance</span></span></h2>
+      <canvas id="evChart" height="110"></canvas>
+    </div>`;
+  document.querySelectorAll("[data-ev]").forEach(el => el.addEventListener("change", e => { evIn[e.target.dataset.ev] = +e.target.value || 0; render(); }));
+  $("#evFromStats").addEventListener("click", () => { evIn = null; render(); });
+  const xs = [...Array(N + 1).keys()];
+  chart("evChart", { type: "line", data: { labels: xs, datasets: [
+      { data: xs.map(i => ev * i + sd * Math.sqrt(i)), borderWidth: 0, pointRadius: 0, fill: "+1", backgroundColor: "rgba(160,170,160,.10)" },
+      { data: xs.map(i => ev * i - sd * Math.sqrt(i)), borderWidth: 0, pointRadius: 0, fill: false },
+      { data: xs.map(i => ev * i), borderColor: "#4b9eff", borderWidth: 1.7, pointRadius: 0 },
+    ] },
+    options: { ...noLegend, animation: false,
+      plugins: { ...noLegend.plugins, tooltip: { filter: c => c.datasetIndex === 2, callbacks: { label: c => "Expected: " + money(c.parsed.y) } } },
+      scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { grid: { display: false }, ticks: { maxTicksLimit: 10 }, title: { display: true, text: "Trade #" } } } } });
+};
+
+/* ---- simulator ---- */
+VIEWS.sim = function (t, s) {
+  if (!simIn) simIn = { sims: 20, n: 500, useKpi: false, p: 50, gain: 500, loss: -250, bal: 20000 };
+  if (simIn.useKpi) { simIn.p = +(s.winrateDecided * 100).toFixed(1) || 50; simIn.gain = Math.round(s.avgWin) || 500; simIn.loss = Math.round(s.avgLoss) || -250; }
+  const avgR = simIn.loss ? Math.abs(simIn.gain / simIn.loss) : 0;
+  $("#view").innerHTML = `
+    <h1 class="viewtitle">Simulator</h1>
+    <div class="viewdesc">Monte Carlo runs of your edge: each simulation replays the same winrate and average win/loss as a fresh sequence of trades.</div>
+    <div style="display:grid;grid-template-columns:340px 1fr;gap:14px" class="sim-wrap">
+      <div class="panel edit-panel">
+        <h2>Edit Data</h2>
+        <div class="field"><div class="lbl">Number of Simulations</div><input type="number" data-sim="sims" value="${simIn.sims}" min="1" max="200"></div>
+        <div class="field"><div class="lbl">Number of Trades</div><input type="number" data-sim="n" value="${simIn.n}" min="10" max="5000"></div>
+        <div class="field" style="display:flex;justify-content:space-between;align-items:center"><div class="lbl" style="margin:0">Use KPI From my Trades</div>
+          <div class="switch ${simIn.useKpi ? "on" : ""}" id="kpiSwitch"><i></i></div></div>
+        <div class="field"><div class="lbl">Winrate (%)</div><input type="number" step="any" data-sim="p" value="${simIn.p}" ${simIn.useKpi ? "disabled" : ""}></div>
+        <div class="field"><div class="lbl">Avg. Gain ($)</div><input type="number" step="any" data-sim="gain" value="${simIn.gain}" ${simIn.useKpi ? "disabled" : ""}></div>
+        <div class="field"><div class="lbl">Avg. Loss ($)</div><input type="number" step="any" data-sim="loss" value="${simIn.loss}" ${simIn.useKpi ? "disabled" : ""}></div>
+        <div class="field"><div class="lbl">Start Balance ($)</div><input type="number" step="any" data-sim="bal" value="${simIn.bal}"></div>
+        <div class="field" style="display:flex;justify-content:space-between"><span class="muted">Avg. R - Multiple</span><span>${avgR.toFixed(2)}</span></div>
+        <button class="btn" id="simRun" style="width:100%">Start Simulation</button>
+      </div>
+      <div class="panel" style="border-style:${simRuns ? "solid" : "dashed"};display:flex;flex-direction:column">
+        ${simRuns ? '<canvas id="simChart" height="130"></canvas><div class="muted" id="simSummary" style="font-size:11px;margin-top:8px"></div>' :
+          '<div class="empty" style="margin:auto">Set the parameters and hit Start Simulation — every run draws a fresh set of equity curves.</div>'}
+      </div>
+    </div>`;
+  document.querySelectorAll("[data-sim]").forEach(el => el.addEventListener("change", e => { simIn[e.target.dataset.sim] = +e.target.value || 0; simRuns = null; render(); }));
+  $("#kpiSwitch").addEventListener("click", () => { simIn.useKpi = !simIn.useKpi; simRuns = null; render(); });
+  $("#simRun").addEventListener("click", () => {
+    const sims = Math.min(200, Math.max(1, simIn.sims)), n = Math.min(5000, Math.max(10, simIn.n));
+    simRuns = [];
+    for (let k = 0; k < sims; k++) {
+      let bal = simIn.bal; const path = [bal];
+      for (let i = 0; i < n; i++) { bal += Math.random() * 100 < simIn.p ? simIn.gain : simIn.loss; path.push(bal); }
+      simRuns.push(path);
+    }
+    render();
+  });
+  if (simRuns) {
+    const n = simRuns[0].length - 1;
+    const step = Math.max(1, Math.floor(n / 400));
+    const xs = []; for (let i = 0; i <= n; i += step) xs.push(i);
+    const finals = simRuns.map(p => p[p.length - 1]).sort((a, b) => a - b);
+    const median = finals[Math.floor(finals.length / 2)];
+    const busted = simRuns.filter(p => p.some(v => v <= 0)).length;
+    chart("simChart", { type: "line", data: { labels: xs, datasets: simRuns.map((p, i) => ({
+        data: xs.map(x => p[x]), borderColor: `hsla(${140 + (i * 47) % 160}, 60%, 55%, .45)`, borderWidth: 1, pointRadius: 0 })) },
+      options: { ...noLegend, animation: false, interaction: { intersect: false },
+        plugins: { ...noLegend.plugins, tooltip: { enabled: false } },
+        scales: { y: { grid: { color: "#141615" }, ticks: kTicks }, x: { grid: { display: false }, ticks: { maxTicksLimit: 10 }, title: { display: true, text: "Trade #" } } } } });
+    $("#simSummary").innerHTML = `${simRuns.length} runs · median final ${money(median)} · best ${money(finals[finals.length - 1])} · worst ${money(finals[0])}${busted ? ` · <span class="loss">${busted} run${busted > 1 ? "s" : ""} hit $0</span>` : ""}`;
+  }
+};
 
 /* ---- chartbook ---- */
-function chartbook(t) {
+VIEWS.chartbook = function (t) {
   const list = t;
   if (bookSel == null || !list.some(x => x.id === bookSel)) bookSel = list[0]?.id ?? null;
   $("#view").innerHTML = `
@@ -622,7 +1386,7 @@ function chartbook(t) {
     <div class="book">
       <div class="book-list">${list.map((x, i) => `
         <div class="book-card ${x.id === bookSel ? "sel" : ""}" data-id="${x.id}">
-          <div class="row"><strong>#${i + 1}</strong><span class="${x.pnl == null ? "muted" : cls(x.pnl)}">${x.pnl == null ? "open" : smoney(x.pnl)}</span></div>
+          <div class="row"><strong>#${i + 1}${x.starred ? " ★" : ""}</strong><span class="${x.pnl == null ? "muted" : cls(x.pnl)}">${x.pnl == null ? "open" : (retPct(x) != null ? (retPct(x) >= 0 ? "+" : "") + retPct(x).toFixed(2) + "%" : smoney(x.pnl))}</span></div>
           <div class="row"><span class="k">Setup</span><span>${esc(x.setup) || "—"}</span></div>
           <div class="row"><span class="k">Direction</span><span class="badge ${x.direction}">${x.direction}</span></div>
           <div class="row"><span class="k">Entry</span><span>${dt(x.entry_date)}</span></div>
@@ -633,16 +1397,16 @@ function chartbook(t) {
     </div>`;
   document.querySelectorAll(".book-card").forEach(c => c.addEventListener("click", () => { bookSel = +c.dataset.id; renderBookDetail(); document.querySelectorAll(".book-card").forEach(x => x.classList.toggle("sel", +x.dataset.id === bookSel)); }));
   renderBookDetail();
-}
-
+};
 async function renderBookDetail() {
   const el = $("#bookDetail"); if (!el || bookSel == null) return;
   const meta = all.find(x => x.id === bookSel); if (!meta) return;
   const listIdx = filtered().findIndex(x => x.id === meta.id) + 1;
-  el.innerHTML = `<h2><span>#${listIdx || meta.id} · ${esc(meta.symbol)} <span class="muted" style="font-weight:400">${meta.pnl == null ? "Open Trade" : ""}</span></span></h2>
+  el.innerHTML = `<h2><span>#${listIdx || meta.id} · ${esc(meta.symbol)} <span class="muted" style="font-weight:400">${meta.pnl == null ? "Open Trade" : ""}</span></span>
+    <button class="rowbtn" onclick="editTrade(${meta.id})">Open Trade</button></h2>
     <div class="muted" style="margin-bottom:10px">Direction <span class="flat">${meta.direction}</span> · Entry <span class="flat">${Number(meta.entry_price)}</span>${meta.exit_price != null ? ` · Exit <span class="flat">${Number(meta.exit_price)}</span> · PnL <span class="${cls(meta.pnl)}">${smoney(meta.pnl)}</span>` : ""}</div>
     <div id="bookImgZone"><div class="book-empty">Loading…</div></div>
-    <div class="muted" id="bookNotes" style="margin-top:10px;font-size:12px">${esc(meta.notes) || "No notes on this trade."}</div>
+    <div class="muted" style="margin-top:10px;font-size:12px">${esc(meta.notes) || "No notes on this trade."}</div>
     <div style="margin-top:12px;display:flex;gap:8px">
       <label class="btn ghost" style="cursor:pointer">Attach screenshot<input type="file" accept="image/*" id="imgIn" hidden></label>
       <button class="btn ghost" id="imgRm" style="display:none">Remove</button>
@@ -667,7 +1431,6 @@ async function renderBookDetail() {
     catch (err) { toast(err.message); }
   });
 }
-
 function shrinkImage(file) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -686,27 +1449,42 @@ function shrinkImage(file) {
 }
 
 /* ================= boot ================= */
+function syncNav() { document.querySelectorAll(".nav-item[data-view]").forEach(x => x.classList.toggle("active", x.dataset.view === view)); }
 document.querySelectorAll(".nav-item").forEach(b => b.addEventListener("click", () => {
-  view = b.dataset.view;
-  document.querySelectorAll(".nav-item").forEach(x => x.classList.toggle("active", x === b));
-  render();
+  if (b.classList.contains("soon")) { toast("This page is coming in the next build round"); return; }
+  if (!b.dataset.view) return;
+  view = b.dataset.view; syncNav(); render();
 }));
-["fSymbol","fAsset","fStyle","fDirection","fSetup","fOutcome","fYear","fMonth","fStarred","fLast"]
-  .forEach(id => document.getElementById(id).addEventListener("change", render));
+$("#basicBtn").addEventListener("click", () => { const el = $("#basicFilters"); const open = el.style.display !== "none"; el.style.display = open ? "none" : ""; $("#basicChev").textContent = open ? "›" : "⌄"; });
+$("#advBtn").addEventListener("click", () => { const el = $("#advFilters"); const open = el.style.display !== "none"; el.style.display = open ? "none" : ""; $("#advChev").textContent = open ? "›" : "⌄"; });
+["fAccount","fSymbol","fSetup","fDirection","fOutcome","fStatus","fYear","fMonth","fDay","fHour","fReturn","fR","fStarred","fLast"]
+  .forEach(id => document.getElementById(id).addEventListener("change", () => { renderAccounts(); render(); }));
 
 function fillFilterOptions() {
   const keep = (sel, opts, label) => {
     const cur = sel.value;
     sel.innerHTML = `<option value="">${label}</option>` + opts.map(o => `<option value="${esc(o.v ?? o)}" ${String(o.v ?? o) === cur ? "selected" : ""}>${esc(o.t ?? o)}</option>`).join("");
   };
+  keep($("#fAccount"), [...new Set(all.map(x => x.account))].sort(), "All accounts");
   keep($("#fSymbol"), [...new Set(all.map(x => x.symbol))].sort(), "All symbols");
   keep($("#fSetup"), [...new Set(all.map(x => x.setup).filter(Boolean))].sort(), "Setup");
   keep($("#fYear"), [...new Set(all.map(x => new Date(x.entry_date).getFullYear()))].sort(), "Year");
   keep($("#fMonth"), MONTHS.map((m, i) => ({ v: i, t: m })), "Month");
+  keep($("#fDay"), DOW.map((d, i) => ({ v: i, t: d })), "Day");
+  keep($("#fHour"), [...Array(24).keys()].map(h => ({ v: h, t: String(h).padStart(2, "0") + ":00" })), "Hour");
 }
-
+function renderAccounts() {
+  const accounts = [...new Set(all.map(x => x.account))].sort();
+  const cur = $("#fAccount").value;
+  $("#acctList").innerHTML = accounts.map(a =>
+    `<button class="nav-item acct-item ${cur === a ? "active" : ""}" data-acct="${esc(a)}">${esc(a)}</button>`).join("") || '<div class="muted" style="padding:4px 10px;font-size:11px">No accounts yet</div>';
+  document.querySelectorAll("[data-acct]").forEach(b => b.addEventListener("click", () => {
+    $("#fAccount").value = $("#fAccount").value === b.dataset.acct ? "" : b.dataset.acct;
+    renderAccounts(); render();
+  }));
+}
 async function load() {
-  try { all = await api("/api/trades"); fillFilterOptions(); render(); }
+  try { all = await api("/api/trades"); fillFilterOptions(); renderAccounts(); render(); }
   catch (e) { toast(e.message); $("#view").innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
 }
 load();
